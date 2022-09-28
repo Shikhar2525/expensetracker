@@ -216,7 +216,7 @@ function AddExpense() {
             <input type="date" id="date" className="form-control" required />
           </div>
           <div class="form-group mt-3  d-flex align-items-center">
-            <input type="submit" className="btn btn-dark " value="Submit" />
+            <input type="submit" className="btn btn-dark " value="Add" />
             {spinner ? (
               <div class="spinner-border" role="status">
                 <span class="sr-only"></span>
