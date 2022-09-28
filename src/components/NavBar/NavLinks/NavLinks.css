@@ -1,0 +1,13 @@
+.navLinks {
+  font-weight: lighter;
+  font-size: large;
+}
+
+li:hover {
+  color: grey;
+}
+
+a,a:hover{
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,0 +1,21 @@
+.navBar {
+  display: flex;
+  flex-direction: column;
+}
+.navElements {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  border: 2px solid grey;
+  border-radius: 50px;
+}
+
+input[type="button"] {
+  border-radius: 50px;
+}
+.changeColor {
+  background-color: black;
+}
