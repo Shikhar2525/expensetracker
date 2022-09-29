@@ -2,26 +2,27 @@ import React from "react";
 import { circleColor, categories } from "../../constants.ts";
 import { useEffect, useState } from "react";
 import "../Stats/Stats.css";
-
+import ExpenseService from "../../services/expense.service";
 
 function Stats() {
   const [expenses, setExpenses] = useState([]);
-  const fetchDataAPI = () => {
-    let allExpenes = [];
-    fetch(
-      "https://expensetracker-3cb3c-default-rtdb.firebaseio.com/expenses.json"
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        for (let key in json) {
-          allExpenes.push(json[key]);
-        }
-        allExpenes.forEach((value, index) => {
-          allExpenes[index].date = new Date(allExpenes[index].date);
-        });
-        setExpenses(allExpenes);
-      });
+  const [spinner, setSpinner] = useState(false);
+
+  const fetchDataAPI = async () => {
+    setSpinner(true);
+    let allExpenses = [];
+    const data = await ExpenseService.getAllExpenses();
+    const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    for (let key in json) {
+      allExpenses.push(json[key]);
+    }
+    allExpenses.forEach((value, index) => {
+      allExpenses[index].date = new Date(allExpenses[index].date);
+    });
+    setExpenses(allExpenses);
+    setSpinner(false);
   };
+
   const getCategoryTotal = (category) => {
     let total = 0;
     expenses.forEach((expense) => {
@@ -60,7 +61,15 @@ function Stats() {
       <div className="left mb-5 col-6">
         <div className="head">
           <h2>Statistics</h2>
+          {spinner ? (
+            <div class="spinner-border mt-1" role="status">
+              <span class="sr-only"></span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
+
         {categoryExpense().map((expense) => {
           return (
             <>
@@ -73,7 +82,7 @@ function Stats() {
               </div>
               <label>
                 {expense.name}{" "}
-                {Math.round(calcPercent(expense.value) * 10) / 10 || '0'}%
+                {Math.round(calcPercent(expense.value) * 10) / 10 || "0"}%
               </label>
             </>
           );

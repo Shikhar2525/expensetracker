@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Stats from "./components/Stats/Stats";
 import NavBar from "./components/NavBar/NavBar";
-import AddExpense from "./components/AddExpense/AddExpense";
+import AddExpense from "./components/ManageExpense/ManageExpense";
 import NoPage from "./components/NoPage/NoPage";
 function App() {
   return (

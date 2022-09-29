@@ -29,51 +29,68 @@ input[type="submit"] {
   .headers {
     flex-direction: column;
   }
-  .list-group-item{
+  .list-group-item {
     flex-direction: column;
   }
+ 
 
   .details {
   }
 }
-.badge{
+
+.badge {
   margin-left: 5px;
 }
-.new{
+.new {
   margin-left: 20px;
 }
 .details {
-  margin-left: 50px;
-  max-height: 911px;
+  max-height: 970px;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.card-header{
+.card-header {
   font-weight: bold;
 }
 .dot {
   height: 25px;
   width: 25px;
-opacity: 65%;
+  opacity: 65%;
   border-radius: 50%;
 }
-.spinner-border{
+.spinner-border {
   margin-left: 10px;
 }
-.fontWhite{
-    color:white;
-    opacity: 65%;
+.fontWhite {
+  color: white;
+  opacity: 65%;
 }
-.list-group-item{
+
+.list-group-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit,
+.delete {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
 .red {
   background-color: red;
 }
 .yellow {
   background-color: yellow;
-  color: black ;
+  color: black;
 }
 .purpule {
   background-color: purple;
@@ -87,22 +104,22 @@ opacity: 65%;
 .orange {
   background-color: orange;
 }
-.black{
-    background-color: black;
+.black {
+  background-color: black;
 }
-.lime{
-    background-color: lime;
-    color: black ;
+.lime {
+  background-color: lime;
+  color: black;
 }
-.naviblue{
-    background-color: navy;
+.naviblue {
+  background-color: navy;
 }
-.grey{
-    background-color: grey;
+.grey {
+  background-color: grey;
 }
-.brown{
-    background-color: #873600;
+.brown {
+  background-color: #873600;
 }
-.indian{
-    background-color: #F50AA7;
+.indian {
+  background-color: #f50aa7;
 }

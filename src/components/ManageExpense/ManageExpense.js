@@ -1,14 +1,17 @@
 import React from "react";
-import "./AddExpense.css";
+import "./ManageExpense.css";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
 import { categories, circleColor } from "../../constants.ts";
-function AddExpense() {
-  const [createResponse, SetCreateResponse] = useState();
+import Modal from "../Modal/Modal";
+import ExpenseService from "../../services/expense.service";
 
+function AddExpense() {
+  const [createResponse, SetCreateResponse] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const [spinner2, setSpinner2] = useState(false);
+  const [refreshList, setRefreshList] = useState(false);
 
   const getCategoryTotal = (category) => {
     let total = 0;
@@ -30,49 +33,29 @@ function AddExpense() {
     return allCategoryTotal;
   };
 
-  const fetchDataAPI = () => {
-    let allExpenes = [];
+  const fetchDataAPI = async () => {
     setSpinner2(true);
-    fetch(
-      "https://expensetracker-3cb3c-default-rtdb.firebaseio.com/expenses.json"
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        for (let key in json) {
-          allExpenes.push(json[key]);
-        }
-        allExpenes.forEach((value, index) => {
-          allExpenes[index].date = new Date(allExpenes[index].date);
-        });
-        setExpenses(allExpenes);
-        setSpinner2(false);
-      });
+    let allExpenses = [];
+
+    const data = await ExpenseService.getAllExpenses();
+
+    const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    for (let key in json) {
+      allExpenses.push(json[key]);
+    }
+    allExpenses.forEach((value, index) => {
+      allExpenses[index].date = new Date(allExpenses[index].date);
+    });
+    setExpenses(allExpenses);
+    setSpinner2(false);
   };
 
   const addExpenseAPI = async (expense) => {
-    const { id, name, price, category, dateString, date } = expense;
     setSpinner(true);
-    const response = await fetch(
-      "https://expensetracker-3cb3c-default-rtdb.firebaseio.com/expenses.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id,
-          name,
-          price,
-          category,
-          dateString,
-          date,
-        }),
-      }
-    ).then((data) => {
-      setSpinner(false);
-      SetCreateResponse(data);
-      fetchDataAPI();
-    });
+    const data = await ExpenseService.addExpense(expense);
+    setSpinner(false);
+    SetCreateResponse(true);
+    fetchDataAPI();
   };
 
   const handleSubmit = (e) => {
@@ -88,7 +71,7 @@ function AddExpense() {
       price: price,
       category: category,
       dateString: newDate.toDateString(),
-      date: newDate,
+      date: date,
     };
     addExpenseAPI(newExpense);
   };
@@ -112,16 +95,9 @@ function AddExpense() {
       if (currentDate.getMonth() === e.date.getMonth())
         total = total + parseInt(e.price);
     });
+
     return priceWithComma(total);
   };
-
-  function reverseArr(input) {
-    var ret = new Array();
-    for (var i = input.length - 1; i >= 0; i--) {
-      ret.push(input[i]);
-    }
-    return ret;
-  }
 
   function formatDate(date) {
     var d = new Date(date),
@@ -143,20 +119,25 @@ function AddExpense() {
       document.getElementById("date").value = "";
     }
   };
+
   useEffect(() => {
     fetchDataAPI();
   }, []);
 
   useEffect(() => {
+    if (refreshList) fetchDataAPI();
+  }, [refreshList]);
+
+  useEffect(() => {
     setTimeout(() => {
-      SetCreateResponse("");
+      SetCreateResponse(false);
     }, 3000);
   }, [createResponse]);
 
   return (
     <div className="main container">
       <div className="formContainer col-6">
-        {createResponse?.status === 200 ? (
+        {createResponse ? (
           <div
             class="alert alert-success alert-dismissible show"
             role="alert"
@@ -274,7 +255,7 @@ function AddExpense() {
             <span class="sr-only"></span>
           </div>
         ) : (
-          reverseArr(expenses).map((expense, index) => {
+          expenses.map((expense, index) => {
             return (
               <div className={`card  mb-3 col-10`}>
                 <div
@@ -298,6 +279,36 @@ function AddExpense() {
                     <b>Date :</b> {expense.dateString}
                   </p>
                 </div>
+                <div className="buttons">
+                  <button
+                    type="button"
+                    class="edit btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#A${expense.id}Edit`}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    class="delete btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#A${expense.id}Delete`}
+                  >
+                    Delete
+                  </button>
+                </div>
+                <Modal
+                  id={`A${expense.id}Delete`}
+                  idToDelete={expense.id}
+                  name={expense.name}
+                  type="Delete"
+                  refreshList={(value) => setRefreshList(value)}
+                />
+                <Modal
+                  id={`A${expense.id}Edit`}
+                  name={expense.name}
+                  type="Edit"
+                />
               </div>
             );
           })
