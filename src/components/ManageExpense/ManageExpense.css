@@ -32,7 +32,6 @@ input[type="submit"] {
   .list-group-item {
     flex-direction: column;
   }
- 
 
   .details {
   }
@@ -76,7 +75,14 @@ input[type="submit"] {
 
 .buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+.iconDiv {
+  margin-left: 20px;
+  margin-top: 5px;
+}
+.icon {
+  font-size: 1.5rem;
 }
 
 .edit,
@@ -122,4 +128,43 @@ input[type="submit"] {
 }
 .indian {
   background-color: #f50aa7;
+}
+
+/* Icon Color*/
+
+.redColor {
+  color: red;
+}
+.yellowColor {
+  color: yellow;
+}
+.purpuleColor {
+  color: purple;
+}
+.greenColor {
+  color: green;
+}
+.violetColor {
+  color: violet;
+}
+.orangeColor {
+  color: orange;
+}
+.blackColor {
+  color: black;
+}
+.limeColor {
+  color: lime;
+}
+.naviblueColor {
+  color: navy;
+}
+.greyColor {
+  color: grey;
+}
+.brownColor {
+  color: #873600;
+}
+.indianColor {
+  color: #f50aa7;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import "./ManageExpense.css";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
-import { categories, circleColor } from "../../constants.ts";
+import { categories, circleColor, categoriesIcon,iconColors } from "../../constants.ts";
 import Modal from "../Modal/Modal";
 import ExpenseService from "../../services/expense.service";
 
@@ -241,9 +241,9 @@ function AddExpense() {
               return (
                 <>
                   <li class="list-group-item">
-                    <span class={`dot ${circleColor[key]}`}></span>
+                    <span class={`${categoriesIcon[key]} ${iconColors[key]} icon`} ></span>
                     <span>{key}</span>
-                    <span class="badge bg-dark rounded-pill">{value} Rs</span>
+                    <span class={`badge bg-dark rounded-pill`}>{value} Rs</span>
                   </li>
                 </>
               );
@@ -276,7 +276,7 @@ function AddExpense() {
                   }`}
                 >
                   {expense.name}
-                  {index === 0 && <span class="badge bg-dark new">Latest</span>}
+                  {index === 0 && <span class="badge bg-dark new">New</span>}
                 </div>
                 <div class="card-body">
                   <p class="card-text">
@@ -291,23 +291,29 @@ function AddExpense() {
                     <b>Date :</b> {expense.dateString}
                   </p>
                 </div>
-                <div className="buttons">
-                  <button
-                    type="button"
-                    class="edit btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target={`#A${expense.id}Edit`}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    class="delete btn btn-danger"
-                    data-bs-toggle="modal"
-                    data-bs-target={`#A${expense.id}Delete`}
-                  >
-                    Delete
-                  </button>
+
+                <div className="buttons ">
+                  <div className="iconDiv">
+                    <span class={`${categoriesIcon[expense.category]} ${iconColors[expense.category]} icon`} ></span>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      class="edit btn btn-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target={`#A${expense.id}Edit`}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      class="delete btn btn-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target={`#A${expense.id}Delete`}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
                 <Modal
                   id={`A${expense.id}Delete`}
