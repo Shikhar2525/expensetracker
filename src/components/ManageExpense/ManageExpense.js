@@ -46,7 +46,11 @@ function AddExpense() {
     allExpenses.forEach((value, index) => {
       allExpenses[index].date = new Date(allExpenses[index].date);
     });
-    setExpenses(allExpenses);
+    const sortedAsc = allExpenses.sort(
+      (objA, objB) => Number(objA.createdDate) - Number(objB.createdDate)
+    );
+
+    setExpenses(sortedAsc);
     setSpinner2(false);
   };
 
@@ -72,6 +76,7 @@ function AddExpense() {
       category: category,
       dateString: newDate.toDateString(),
       date: date,
+      createdDate: new Date(),
     };
     addExpenseAPI(newExpense);
   };
@@ -120,6 +125,13 @@ function AddExpense() {
     }
   };
 
+  function reverseArr(input) {
+    var ret = new Array();
+    for (var i = input.length - 1; i >= 0; i--) {
+      ret.push(input[i]);
+    }
+    return ret;
+  }
   useEffect(() => {
     fetchDataAPI();
   }, []);
@@ -255,7 +267,7 @@ function AddExpense() {
             <span class="sr-only"></span>
           </div>
         ) : (
-          expenses.map((expense, index) => {
+          reverseArr(expenses).map((expense, index) => {
             return (
               <div className={`card  mb-3 col-10`}>
                 <div
