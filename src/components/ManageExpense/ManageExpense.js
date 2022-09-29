@@ -2,7 +2,12 @@ import React from "react";
 import "./ManageExpense.css";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
-import { categories, circleColor, categoriesIcon,iconColors } from "../../constants.ts";
+import {
+  categories,
+  circleColor,
+  categoriesIcon,
+  iconColors,
+} from "../../constants.ts";
 import Modal from "../Modal/Modal";
 import ExpenseService from "../../services/expense.service";
 
@@ -12,6 +17,7 @@ function AddExpense() {
   const [spinner, setSpinner] = useState(false);
   const [spinner2, setSpinner2] = useState(false);
   const [refreshList, setRefreshList] = useState(false);
+  const [filterValues, setFilterValues] = useState();
 
   const getCategoryTotal = (category) => {
     let total = 0;
@@ -49,8 +55,15 @@ function AddExpense() {
     const sortedAsc = allExpenses.sort(
       (objA, objB) => Number(objA.createdDate) - Number(objB.createdDate)
     );
-
-    setExpenses(sortedAsc);
+    let filteredValue = [];
+    if (filterValues) {
+      sortedAsc.forEach((value) => {
+        if (value.category === filterValues) {
+          filteredValue.push(value);
+        }
+      });
+    }
+    setExpenses(filterValues ? filteredValue : sortedAsc);
     setSpinner2(false);
   };
 
@@ -132,6 +145,10 @@ function AddExpense() {
     }
     return ret;
   }
+
+  const getFilterValues = (category) => {
+    setFilterValues(category);
+  };
   useEffect(() => {
     fetchDataAPI();
   }, []);
@@ -139,6 +156,10 @@ function AddExpense() {
   useEffect(() => {
     if (refreshList) fetchDataAPI();
   }, [refreshList]);
+
+  useEffect(() => {
+    fetchDataAPI();
+  }, [filterValues]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -241,7 +262,9 @@ function AddExpense() {
               return (
                 <>
                   <li class="list-group-item">
-                    <span class={`${categoriesIcon[key]} ${iconColors[key]} icon`} ></span>
+                    <span
+                      class={`${categoriesIcon[key]} ${iconColors[key]} icon`}
+                    ></span>
                     <span>{key}</span>
                     <span class={`badge bg-dark rounded-pill`}>{value} Rs</span>
                   </li>
@@ -254,7 +277,7 @@ function AddExpense() {
       <div className="details col-12 col-xl-6 mt-5">
         <div className="headers col-10">
           <button type="button" class="btn btn-dark mb-2  total">
-            All Expenses
+            Total
             <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
           <button type="button" class="btn btn-dark mb-2  col-sm-12 total">
@@ -262,6 +285,17 @@ function AddExpense() {
             <span class="badge bg-secondary">{totalExpenseThisMonth()} Rs</span>
           </button>
         </div>
+        <div className="subHeaders col-10">
+          <button
+            type="button"
+            class="btn btn-primary mb-2  filter col-12"
+            data-bs-toggle="modal"
+            data-bs-target={`#filterModal`}
+          >
+            <i class="bi bi-funnel"></i> Filter
+          </button>
+        </div>
+
         {spinner2 ? (
           <div class="spinner-border" role="status">
             <span class="sr-only"></span>
@@ -294,7 +328,11 @@ function AddExpense() {
 
                 <div className="buttons ">
                   <div className="iconDiv">
-                    <span class={`${categoriesIcon[expense.category]} ${iconColors[expense.category]} icon`} ></span>
+                    <span
+                      class={`${categoriesIcon[expense.category]} ${
+                        iconColors[expense.category]
+                      } icon`}
+                    ></span>
                   </div>
                   <div>
                     <button
@@ -332,6 +370,11 @@ function AddExpense() {
           })
         )}
       </div>
+      <Modal
+        id="filterModal"
+        type="Filter"
+        sendFilterValues={(category) => getFilterValues(category)}
+      />
     </div>
   );
 }

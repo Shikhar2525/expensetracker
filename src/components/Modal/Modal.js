@@ -1,9 +1,11 @@
 import React from "react";
 import ExpenseService from "../../services/expense.service";
 import { useState } from "react";
+import { categories } from "../../constants.ts";
 
 function Modal(props) {
   const [spinner, setSpinner] = useState(false);
+  const [filterValues,setFilterValues]= useState();
   const deleteExpense = async (idToDelete) => {
     setSpinner(true);
     await ExpenseService.deleteExpense(idToDelete);
@@ -11,6 +13,14 @@ function Modal(props) {
     setSpinner(false);
     props.refreshList(true);
   };
+
+  const handleClick=()=>{
+    props.sendFilterValues(filterValues)
+    document.getElementById('filterCLose').click()
+  }
+  const handleChangeDropdown=(e)=>{
+    setFilterValues(e.target.value)
+  }
 
   return (
     <>
@@ -57,7 +67,10 @@ function Modal(props) {
                 <button
                   type="button"
                   class="btn btn-danger"
-                  onClick={() => {deleteExpense(props.idToDelete); props.refreshList(false);}}
+                  onClick={() => {
+                    deleteExpense(props.idToDelete);
+                    props.refreshList(false);
+                  }}
                 >
                   Delete
                 </button>
@@ -65,7 +78,7 @@ function Modal(props) {
             </div>
           </div>
         </div>
-      ) : (
+      ) : props.type === "Edit" ? (
         <div
           class="modal fade"
           id={props.id}
@@ -97,6 +110,89 @@ function Modal(props) {
                 </button>
                 <button type="button" class="btn btn-danger">
                   Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div
+          class="modal fade"
+          id={props.id}
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  {props.type}
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form className="">
+                  
+                  <div class="form-group ">
+                    <label>
+                      Category <span className="redStar">*</span>
+                    </label>
+                    <select
+                      className="form-select"
+                      aria-label="Default select example"
+                      id="category"
+                      onChange={handleChangeDropdown}
+                      required
+                    >
+                      <option value="">Select Category </option>
+                      {categories.map((category) => {
+                        return <option value={category}>{category}</option>;
+                      })}
+                    </select>
+                  </div>
+                  <div class="form-group mt-3">
+                    <label>
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      id="date"
+                      className="form-control"
+                    />
+                  </div>
+                  <div class="form-group mt-3">
+                    <div class="form-check">
+                      <input
+                        id="checkbox"
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        onClick={''}
+                      />
+                      <label class="form-check-label" for="flexCheckChecked">
+                        Today's Date
+                      </label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                id="filterCLose"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary" onClick={()=>handleClick()}>
+                  Apply
                 </button>
               </div>
             </div>
