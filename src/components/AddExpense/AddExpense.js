@@ -2,42 +2,14 @@ import React from "react";
 import "./AddExpense.css";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
+import { categories, circleColor } from "../../constants.ts";
 function AddExpense() {
-  const categories = [
-    "Rent",
-    "Transportation",
-    "Groceries",
-    "Home and utilities",
-    "Insurance",
-    "Bills & emis",
-    "Education",
-    "Health and personal care",
-    "Shopping and entertainment",
-    "Food and dining",
-    "Travel",
-    "Memberships",
-  ];
-
-  const circleColor = {
-    Rent: "red",
-    Transportation: "yellow",
-    Groceries: "purpule",
-    "Home and utilities": "green",
-    Insurance: "violet",
-    "Bills & emis": "orange",
-    Education: "black",
-    "Health and personal care": "lime",
-    "Shopping and entertainment": "naviblue",
-    "Food and dining": "grey",
-    Travel: "brown",
-    Memberships: "indian",
-  };
-
   const [createResponse, SetCreateResponse] = useState();
 
   const [expenses, setExpenses] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const [spinner2, setSpinner2] = useState(false);
+
   const getCategoryTotal = (category) => {
     let total = 0;
     expenses.forEach((expense) => {
@@ -47,6 +19,7 @@ function AddExpense() {
     });
     return total;
   };
+
   const categoryExpense = () => {
     let allCategoryTotal = {};
     categories.forEach((category) => {
@@ -59,7 +32,7 @@ function AddExpense() {
 
   const fetchDataAPI = () => {
     let allExpenes = [];
-    setSpinner2(true)
+    setSpinner2(true);
     fetch(
       "https://expensetracker-3cb3c-default-rtdb.firebaseio.com/expenses.json"
     )
@@ -72,7 +45,7 @@ function AddExpense() {
           allExpenes[index].date = new Date(allExpenes[index].date);
         });
         setExpenses(allExpenes);
-        setSpinner2(false)
+        setSpinner2(false);
       });
   };
 
@@ -142,6 +115,34 @@ function AddExpense() {
     return priceWithComma(total);
   };
 
+  function reverseArr(input) {
+    var ret = new Array();
+    for (var i = input.length - 1; i >= 0; i--) {
+      ret.push(input[i]);
+    }
+    return ret;
+  }
+
+  function formatDate(date) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+
+  const handleCheckChange = () => {
+    var checkBox = document.getElementById("checkbox");
+    if (checkBox?.checked === true) {
+      document.getElementById("date").value = formatDate(new Date());
+    } else {
+      document.getElementById("date").value = "";
+    }
+  };
   useEffect(() => {
     fetchDataAPI();
   }, []);
@@ -215,6 +216,20 @@ function AddExpense() {
             </label>
             <input type="date" id="date" className="form-control" required />
           </div>
+          <div class="form-group mt-3">
+            <div class="form-check">
+              <input
+                id="checkbox"
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                onClick={() => handleCheckChange()}
+              />
+              <label class="form-check-label" for="flexCheckChecked">
+                Today's Date
+              </label>
+            </div>
+          </div>
           <div class="form-group mt-3  d-flex align-items-center">
             <input type="submit" className="btn btn-dark " value="Add" />
             {spinner ? (
@@ -232,9 +247,9 @@ function AddExpense() {
             {Object.entries(categoryExpense()).map(([key, value]) => {
               return (
                 <>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <li class="list-group-item">
                     <span class={`dot ${circleColor[key]}`}></span>
-                    {key}
+                    <span>{key}</span>
                     <span class="badge bg-dark rounded-pill">{value} Rs</span>
                   </li>
                 </>
@@ -245,12 +260,12 @@ function AddExpense() {
       </div>
       <div className="details col-12 col-xl-6 mt-5">
         <div className="headers col-10">
-          <button type="button" class="btn btn-dark mb-2 col-5 total">
-            Total Expense{" "}
-            <span class="badge bg-secondary">{totalExpense()} Rs</span>
+          <button type="button" class="btn btn-dark mb-2  total">
+            All Expenses
+            <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
-          <button type="button" class="btn btn-dark mb-2 col-5 col-sm-12 total">
-            This Month{" "}
+          <button type="button" class="btn btn-dark mb-2  col-sm-12 total">
+            This Month
             <span class="badge bg-secondary">{totalExpenseThisMonth()} Rs</span>
           </button>
         </div>
@@ -259,7 +274,7 @@ function AddExpense() {
             <span class="sr-only"></span>
           </div>
         ) : (
-          expenses.map((expense) => {
+          reverseArr(expenses).map((expense, index) => {
             return (
               <div className={`card  mb-3 col-10`}>
                 <div
@@ -268,6 +283,7 @@ function AddExpense() {
                   }`}
                 >
                   {expense.name}
+                  {index === 0 && <span class="badge bg-dark new">Latest</span>}
                 </div>
                 <div class="card-body">
                   <p class="card-text">

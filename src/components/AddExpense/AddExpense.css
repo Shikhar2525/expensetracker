@@ -29,14 +29,27 @@ input[type="submit"] {
   .headers {
     flex-direction: column;
   }
+  .list-group-item{
+    flex-direction: column;
+  }
 
   .details {
   }
 }
+.badge{
+  margin-left: 5px;
+}
+.new{
+  margin-left: 20px;
+}
 .details {
   margin-left: 50px;
+  max-height: 911px;
+  overflow-y: scroll;
 }
-
+.card-header{
+  font-weight: bold;
+}
 .dot {
   height: 25px;
   width: 25px;
@@ -50,11 +63,17 @@ opacity: 65%;
     color:white;
     opacity: 65%;
 }
+.list-group-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .red {
   background-color: red;
 }
 .yellow {
   background-color: yellow;
+  color: black ;
 }
 .purpule {
   background-color: purple;
@@ -73,6 +92,7 @@ opacity: 65%;
 }
 .lime{
     background-color: lime;
+    color: black ;
 }
 .naviblue{
     background-color: navy;

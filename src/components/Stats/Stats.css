@@ -1,0 +1,41 @@
+.main{
+    display: flex;
+    flex-direction: row;
+}
+
+.red {
+    background-color: red;
+  }
+  .yellow {
+    background-color: yellow;
+  }
+  .purpule {
+    background-color: purple;
+  }
+  .green {
+    background-color: green;
+  }
+  .violet {
+    background-color: violet;
+  }
+  .orange {
+    background-color: orange;
+  }
+  .black{
+      background-color: black;
+  }
+  .lime{
+      background-color: lime;
+  }
+  .naviblue{
+      background-color: navy;
+  }
+  .grey{
+      background-color: grey;
+  }
+  .brown{
+      background-color: #873600;
+  }
+  .indian{
+      background-color: #F50AA7;
+  }
