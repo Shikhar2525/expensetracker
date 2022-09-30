@@ -3,15 +3,17 @@ import { circleColor, categories } from "../../constants.ts";
 import { useEffect, useState } from "react";
 import "../Stats/Stats.css";
 import ExpenseService from "../../services/expense.service";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Stats() {
   const [expenses, setExpenses] = useState([]);
   const [spinner, setSpinner] = useState(false);
+  const { user } = useAuth0();
 
   const fetchDataAPI = async () => {
     setSpinner(true);
     let allExpenses = [];
-    const data = await ExpenseService.getAllExpenses();
+    const data = await ExpenseService.getAllExpenses(user);
     const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     for (let key in json) {
       allExpenses.push(json[key]);

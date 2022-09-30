@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar/NavBar";
 import AddExpense from "./components/ManageExpense/ManageExpense";
 import NoPage from "./components/NoPage/NoPage";
 import { useAuth0 } from "@auth0/auth0-react";
+import Welcome from "./components/Welcome/Welcome";
 
 function App() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
@@ -18,11 +19,11 @@ function App() {
 
         <Route
           path="add"
-          element={isAuthenticated ? <AddExpense /> :<h5 className="m-4">Authenticating...</h5>}
+          element={isAuthenticated ? <AddExpense /> :<Welcome />}
         />
         <Route
           path="stats"
-          element={isAuthenticated ? <Stats /> : <h5 className="m-4">Authenticating...</h5>}
+          element={isAuthenticated ? <Stats /> :<Welcome />}
         />
         <Route path="*" element={<NoPage />} />
       </Routes>

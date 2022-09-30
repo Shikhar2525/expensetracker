@@ -6,9 +6,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 function NavBar() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
     useAuth0();
-  console.log(user);
   return (
     <div className={`navBar mt-4`}>
+    
       <div className="allElements  container">
         <div className="logoSpinner">
           <img

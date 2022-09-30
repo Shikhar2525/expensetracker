@@ -20,7 +20,7 @@ function AddExpense() {
   const [refreshList, setRefreshList] = useState(false);
   const [filterValues, setFilterValues] = useState();
 
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated,user, isLoading } = useAuth0();
 
   const getCategoryTotal = (category) => {
     let total = 0;
@@ -46,7 +46,7 @@ function AddExpense() {
     setSpinner2(true);
     let allExpenses = [];
 
-    const data = await ExpenseService.getAllExpenses();
+    const data = await ExpenseService.getAllExpenses(user);
 
     const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     for (let key in json) {
@@ -87,6 +87,7 @@ function AddExpense() {
     let newDate = new Date(date);
     let newExpense = {
       id: uuid(),
+      user: user.email,
       name: name,
       price: price,
       category: category,
@@ -275,7 +276,7 @@ function AddExpense() {
           </ul>
         </div>
       </div>
-      <div className="details col-12 col-xl-6 mt-5">
+      <div className="details col-12 col-xl-6 mt-4">
         <div className="headers col-10">
           <button type="button" class="btn btn-dark mb-2  total">
             Total
