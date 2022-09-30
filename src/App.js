@@ -18,11 +18,11 @@ function App() {
 
         <Route
           path="add"
-          element={isAuthenticated ? <AddExpense /> : "Login first"}
+          element={isAuthenticated ? <AddExpense /> :<h5 className="m-4">Authenticating...</h5>}
         />
         <Route
           path="stats"
-          element={isAuthenticated ? <Stats /> : "Login first"}
+          element={isAuthenticated ? <Stats /> : <h5 className="m-4">Authenticating...</h5>}
         />
         <Route path="*" element={<NoPage />} />
       </Routes>

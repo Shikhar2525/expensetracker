@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Welcome from '../Welcome/Welcome';
 
 function Home() {
   return (
-    <div>Home</div>
+    <div><Welcome/></div>
   )
 }
 

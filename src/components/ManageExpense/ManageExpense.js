@@ -376,6 +376,7 @@ function AddExpense() {
         type="Filter"
         sendFilterValues={(category) => getFilterValues(category)}
       />
+      
     </div>
   );
 }

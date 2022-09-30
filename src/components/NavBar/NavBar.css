@@ -2,37 +2,35 @@
   display: flex;
   flex-direction: column;
 }
-.allElements{
+.allElements {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 @media screen and (max-device-width: 640px) {
-  .allElements{
+  .allElements {
     flex-direction: column;
     align-items: center;
   }
-  .loginDetails{
+  .loginDetails {
     margin-top: 10px;
     flex-direction: column;
     align-items: center;
   }
-  .logoutButton{
+  .logoutButton {
     margin-top: 10px;
   }
 }
 
 
 
-.loginDetails{
+.loginDetails {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  font-family:'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-weight: 600;
   margin-right: 43px;
-  
 }
 
 .search {

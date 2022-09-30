@@ -27,9 +27,9 @@ function NavBar() {
             ""
           )}
         </div>
-        <div className="loginDetails col-4">
+        <div className="loginDetails col-3">
           <div className="userDetails">
-            {isAuthenticated ? `Welcome! ${user.email}` : ""}
+            {isAuthenticated ? `${user.email}` : ""}
           </div>
 
           {isAuthenticated ? (
