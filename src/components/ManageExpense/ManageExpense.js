@@ -183,9 +183,6 @@ function AddExpense() {
         )}
         <form className="mt-4" onSubmit={handleSubmit} method="POST">
           <div className="form-group">
-            <label for="ExpenseName">
-              Expense Name <span className="redStar">*</span>
-            </label>
             <input
               type="text"
               className="form-control"

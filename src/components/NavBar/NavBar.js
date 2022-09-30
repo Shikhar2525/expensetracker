@@ -29,9 +29,7 @@ function NavBar() {
         <NavLinks />
       </div>
       <div className="head d-flex justify-content-center">
-        <h1 className="">
-          <i>Expense Tracker</i>
-        </h1>
+      <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
       </div>
     </div>
   );
