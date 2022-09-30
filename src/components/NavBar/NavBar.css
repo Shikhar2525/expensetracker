@@ -2,10 +2,37 @@
   display: flex;
   flex-direction: column;
 }
-.navElements {
+.allElements{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+@media screen and (max-device-width: 640px) {
+  .allElements{
+    flex-direction: column;
+    align-items: center;
+  }
+  .loginDetails{
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .logoutButton{
+    margin-top: 10px;
+  }
+}
+
+
+
+.loginDetails{
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  font-family:'Times New Roman', Times, serif;
+  font-weight: 600;
+  margin-right: 43px;
+  
 }
 
 .search {

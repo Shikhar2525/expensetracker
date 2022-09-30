@@ -1,17 +1,18 @@
 import React from "react";
 import "./NavLinks.css";
+import { Link } from "react-router-dom";
 function NavLinks() {
   return (
     <div className="navLinks container mt-4">
       <ol className="breadcrumb">
         <li className="breadcrumb-item">
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <a href="/add">Add Expense</a>
+          <Link to="/add">Add Expense</Link>
         </li>
         <li className="breadcrumb-item">
-          <a href="/stats">Statistics</a>
+          <Link to="/stats">Statistics</Link>
         </li>
       </ol>
     </div>

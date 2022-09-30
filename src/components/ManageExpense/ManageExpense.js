@@ -10,6 +10,7 @@ import {
 } from "../../constants.ts";
 import Modal from "../Modal/Modal";
 import ExpenseService from "../../services/expense.service";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function AddExpense() {
   const [createResponse, SetCreateResponse] = useState(false);
@@ -18,6 +19,8 @@ function AddExpense() {
   const [spinner2, setSpinner2] = useState(false);
   const [refreshList, setRefreshList] = useState(false);
   const [filterValues, setFilterValues] = useState();
+
+  const { isAuthenticated, isLoading } = useAuth0();
 
   const getCategoryTotal = (category) => {
     let total = 0;
@@ -167,6 +170,7 @@ function AddExpense() {
     }, 3000);
   }, [createResponse]);
 
+ 
   return (
     <div className="main container">
       <div className="formContainer col-6">

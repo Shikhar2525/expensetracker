@@ -1,36 +1,57 @@
 import React from "react";
 import "./NavBar.css";
 import NavLinks from "./NavLinks/NavLinks";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function NavBar() {
+  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
+    useAuth0();
+
   return (
-    <div className={`navBar m-2`}>
-      <div className={`navElements`}>
-        <div className="searchbar col-4">
-          <input
-            type="text"
-            className="form-control search"
-            name=""
-            id=""
-            aria-describedby=""
-            placeholder="Search an expense"
+    <div className={`navBar mt-4`}>
+      <div className="allElements  container">
+        <div className="logoSpinner">
+          <img
+            className="Logo"
+            src={process.env.PUBLIC_URL + "/logo.png"}
+            alt="logo"
           />
+          {isLoading ? (
+            <div
+              class="spinner spinner-border spinner-border-sm mt-4"
+              role="status"
+            >
+              <span class="sr-only"></span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
-        <div className="m-2">
-          <input
-            type="button"
-            className="btn btn-dark"
-            placeholder="Search"
-            value="Search"
-          />
+        <div className="loginDetails col-4">
+          <div className="userDetails">
+            {isAuthenticated ? `Welcome! ${user.email}` : ""}
+          </div>
+
+          {isAuthenticated ? (
+            <button
+              className="logoutButton btn btn-danger"
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
+              Log Out
+            </button>
+          ) : (
+            <button className="btn btn-dark" onClick={() => loginWithRedirect()}>Log In</button>
+          )}
         </div>
       </div>
-      <div className="navLink">
-        <NavLinks />
-      </div>
-      <div className="head d-flex justify-content-center">
-      <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
-      </div>
+
+      {isAuthenticated ? (
+        <div className="navLink">
+          <NavLinks />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
