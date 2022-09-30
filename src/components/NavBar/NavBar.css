@@ -22,15 +22,27 @@
   }
 }
 
+.logoutButton {
+  margin-left: 10px;
+}
 
-
+.profile{
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.userDetails{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .loginDetails {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   font-family: "Times New Roman", Times, serif;
   font-weight: 600;
   margin-right: 43px;
+ 
 }
 
 .search {

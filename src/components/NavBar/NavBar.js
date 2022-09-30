@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 function NavBar() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
     useAuth0();
-
+  console.log(user);
   return (
     <div className={`navBar mt-4`}>
       <div className="allElements  container">
@@ -27,9 +27,20 @@ function NavBar() {
             ""
           )}
         </div>
-        <div className="loginDetails col-3">
-          <div className="userDetails">
-            {isAuthenticated ? `${user.email}` : ""}
+        <div className="loginDetails col-7">
+          <div className="userDetails ">
+            {isAuthenticated ? (
+              <img
+                className="profile"
+                src={user.picture}
+                width="50px"
+                height="50px"
+                alt="profile"
+              />
+            ) : (
+              ""
+            )}{" "}
+            {isAuthenticated ? `${user.name || user.email}` : ""}
           </div>
 
           {isAuthenticated ? (
@@ -40,7 +51,12 @@ function NavBar() {
               Log Out
             </button>
           ) : (
-            <button className="btn btn-dark" onClick={() => loginWithRedirect()}>Log In</button>
+            <button
+              className="btn btn-dark"
+              onClick={() => loginWithRedirect()}
+            >
+              Log In
+            </button>
           )}
         </div>
       </div>
