@@ -31,10 +31,12 @@ input[type="submit"] {
   .list-group-item {
     flex-direction: column;
   }
-  .menuButtons{
+  .menuButtons {
     margin-top: 10px;
   }
-
+  .vr{
+    display: none;
+  }
   .details {
   }
 }
@@ -178,10 +180,9 @@ input[type="submit"] {
 }
 
 hr {
-  border: 0;
-  clear:both;
-  display:block;
-  width: 83%;               
-  background-color:black;
-  height: 1px;
+  color: gray;
+  border-style: inset;
+  border-width: 1px;
+  margin: 0.5em auto;
 }
+

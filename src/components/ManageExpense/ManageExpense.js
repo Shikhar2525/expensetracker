@@ -73,6 +73,7 @@ function AddExpense() {
     SetCreateResponse(true);
     setFilterValues(null);
     fetchDataAPI();
+    // document.getElementById('line').focus();
   };
 
   const handleSubmit = (e) => {
@@ -155,6 +156,7 @@ function AddExpense() {
 
   useEffect(() => {
     fetchDataAPI();
+    // document.getElementById('line').focus();
   }, [filterValues]);
 
   useEffect(() => {
@@ -274,9 +276,7 @@ function AddExpense() {
             <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
         </div>
-        <hr />
-
-        <div className="headers col-10">
+        <div className="headers col-10 mt-2">
           <div class="dropdown">
             <button
               class="btn btn-warning dropdown-toggle menuButtons"
@@ -318,6 +318,7 @@ function AddExpense() {
               </li>
             </ul>
           </div>
+          <div class="vr"></div>
           <button
             type="button"
             class="btn btn-primary menuButtons "
@@ -326,6 +327,7 @@ function AddExpense() {
           >
             <i class="bi bi-funnel"></i> Filter
           </button>
+          <div class="vr"></div>
           <button
             type="button"
             class="btn btn-danger menuButtons "
@@ -336,9 +338,9 @@ function AddExpense() {
           >
             Remove Filters
           </button>
+          <div class="vr"></div>
           <ExportCSV data={expenses} canDisable={!(expenses.length > 0)} />
         </div>
-        <hr />
         {spinner2 ? (
           <div class="spinner-border" role="status">
             <span class="sr-only"></span>
