@@ -8,7 +8,8 @@ import {
   deleteDoc,
   doc,
   where,
-  query
+  query,
+  Query,
 } from "firebase/firestore";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -18,8 +19,20 @@ class ExpenseService {
   addExpense = (newExpense) => {
     return addDoc(expenseRef, newExpense);
   };
-  getAllExpenses = (user) => {
-    const queryRef = query(expenseRef, where("user", "==", user.email));
+  getAllExpenses = (user, filterValues) => {
+    const email = where("user", "==", user.email);
+    const month = where("month", "==", new Date(filterValues?.date).getMonth());
+    const year = where("year", "==", new Date(filterValues?.date).getFullYear());
+    const category = where("category", "==", filterValues?.category);
+
+    let queryRef = query(
+      expenseRef,
+      email,
+      filterValues?.date ? month : email,
+      filterValues?.date ? year : email,
+      filterValues?.category ? category : email
+    );
+
     return getDocs(queryRef);
   };
   deleteExpense = (id) => {

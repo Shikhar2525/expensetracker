@@ -47,27 +47,21 @@ function AddExpense() {
     setSpinner2(true);
     let allExpenses = [];
 
-    const data = await ExpenseService.getAllExpenses(user);
+    const data = await ExpenseService.getAllExpenses(user, filterValues);
 
     const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     for (let key in json) {
       allExpenses.push(json[key]);
     }
+    console.log(allExpenses);
     allExpenses.forEach((value, index) => {
       allExpenses[index].date = new Date(allExpenses[index].date);
     });
     const sortedAsc = allExpenses.sort(
       (objA, objB) => Number(objA.createdDate) - Number(objB.createdDate)
     );
-    let filteredValue = [];
-    if (filterValues) {
-      sortedAsc.forEach((value) => {
-        if (value.category === filterValues) {
-          filteredValue.push(value);
-        }
-      });
-    }
-    setExpenses(filterValues ? filteredValue : sortedAsc);
+
+    setExpenses(sortedAsc);
     setSpinner2(false);
   };
 
@@ -76,6 +70,7 @@ function AddExpense() {
     const data = await ExpenseService.addExpense(expense);
     setSpinner(false);
     SetCreateResponse(true);
+    setFilterValues(null)
     fetchDataAPI();
   };
 
@@ -86,6 +81,7 @@ function AddExpense() {
     const category = document.getElementById("category").value;
     const date = document.getElementById("date").value;
     let newDate = new Date(date);
+    let today = new Date();
     let newExpense = {
       id: uuid(),
       user: user.email,
@@ -94,7 +90,9 @@ function AddExpense() {
       category: category,
       dateString: newDate.toDateString(),
       date: date,
-      createdDate: new Date(),
+      createdDate: today,
+      month: newDate.getMonth(),
+      year: newDate.getFullYear(),
     };
     addExpenseAPI(newExpense);
   };
@@ -111,16 +109,6 @@ function AddExpense() {
     return priceWithComma(total);
   };
 
-  // const totalExpenseThisMonth = () => {
-  //   const currentDate = new Date();
-  //   let total = 0;
-  //   expenses.forEach((e) => {
-  //     if (currentDate.getMonth() === e.date.getMonth())
-  //       total = total + parseInt(e.price);
-  //   });
-
-  //   return priceWithComma(total);
-  // };
 
   function formatDate(date) {
     var d = new Date(date),
@@ -151,8 +139,11 @@ function AddExpense() {
     return ret;
   }
 
-  const getFilterValues = (category) => {
-    setFilterValues(category);
+  const getFilterValues = (valueObj) => {
+    setFilterValues({
+      category: valueObj.category,
+      date: valueObj.startDate,
+    });
   };
   useEffect(() => {
     fetchDataAPI();
@@ -291,7 +282,7 @@ function AddExpense() {
             <i class="bi bi-funnel"></i> Filter
           </button>
         </div>
-      
+
         {spinner2 ? (
           <div class="spinner-border" role="status">
             <span class="sr-only"></span>
@@ -322,14 +313,15 @@ function AddExpense() {
           })
         ) : (
           <div class="alert alert-danger col-10" role="alert">
-            No Data Available. <strong>Try adding data or changing filter</strong>
+            No Data Available.{" "}
+            <strong>Try adding data or changing filter</strong>
           </div>
         )}
       </div>
       <Modal
         id="filterModal"
         type="Filter"
-        sendFilterValues={(category) => getFilterValues(category)}
+        sendFilterValues={(value) => getFilterValues(value)}
       />
     </div>
   );

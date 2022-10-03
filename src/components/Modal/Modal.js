@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function Modal(props) {
   const [spinner, setSpinner] = useState(false);
-  const [filterValues, setFilterValues] = useState();
+  const [category, setCategory] = useState();
   const deleteExpense = async (idToDelete) => {
     setSpinner(true);
     await ExpenseService.deleteExpense(idToDelete);
@@ -15,15 +15,15 @@ function Modal(props) {
     setSpinner(false);
     props.refreshList(true);
   };
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState();
 
   const handleClick = () => {
-    props.sendFilterValues(filterValues);
+    props.sendFilterValues({category,startDate});
     document.getElementById("filterCLose").click();
     document.getElementsByClassName(".modal-backdrop").remove();
   };
   const handleChangeDropdown = (e) => {
-    setFilterValues(e.target.value);
+    setCategory(e.target.value);
   };
 
   return (
@@ -167,6 +167,9 @@ function Modal(props) {
                       selected={startDate}
                       onChange={(date) => setStartDate(date)}
                     />
+                  </div>
+                  <div class="form-group mt-1">
+                    <button type="button" className="btn" onClick={()=>setStartDate(null)}>Reset date</button>
                   </div>
                 </form>
               </div>
