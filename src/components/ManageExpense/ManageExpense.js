@@ -11,6 +11,7 @@ import {
 import Modal from "../Modal/Modal";
 import ExpenseService from "../../services/expense.service";
 import { useAuth0 } from "@auth0/auth0-react";
+import Card from "../Card/Card";
 
 function AddExpense() {
   const [createResponse, SetCreateResponse] = useState(false);
@@ -20,7 +21,7 @@ function AddExpense() {
   const [refreshList, setRefreshList] = useState(false);
   const [filterValues, setFilterValues] = useState();
 
-  const { isAuthenticated,user, isLoading } = useAuth0();
+  const { isAuthenticated, user, isLoading } = useAuth0();
 
   const getCategoryTotal = (category) => {
     let total = 0;
@@ -110,16 +111,16 @@ function AddExpense() {
     return priceWithComma(total);
   };
 
-  const totalExpenseThisMonth = () => {
-    const currentDate = new Date();
-    let total = 0;
-    expenses.forEach((e) => {
-      if (currentDate.getMonth() === e.date.getMonth())
-        total = total + parseInt(e.price);
-    });
+  // const totalExpenseThisMonth = () => {
+  //   const currentDate = new Date();
+  //   let total = 0;
+  //   expenses.forEach((e) => {
+  //     if (currentDate.getMonth() === e.date.getMonth())
+  //       total = total + parseInt(e.price);
+  //   });
 
-    return priceWithComma(total);
-  };
+  //   return priceWithComma(total);
+  // };
 
   function formatDate(date) {
     var d = new Date(date),
@@ -171,7 +172,6 @@ function AddExpense() {
     }, 3000);
   }, [createResponse]);
 
- 
   return (
     <div className="main container">
       <div className="formContainer col-6">
@@ -282,94 +282,48 @@ function AddExpense() {
             Total
             <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
-          <button type="button" class="btn btn-dark mb-2  col-sm-12 total">
-            This Month
-            <span class="badge bg-secondary">{totalExpenseThisMonth()} Rs</span>
-          </button>
-        </div>
-        <div className="subHeaders col-10">
           <button
             type="button"
-            class="btn btn-primary mb-2  filter col-12"
+            class="btn btn-primary mb-2 total"
             data-bs-toggle="modal"
             data-bs-target={`#filterModal`}
           >
             <i class="bi bi-funnel"></i> Filter
           </button>
         </div>
-
+      
         {spinner2 ? (
           <div class="spinner-border" role="status">
             <span class="sr-only"></span>
           </div>
-        ) : (
+        ) : expenses.length > 0 ? (
           reverseArr(expenses).map((expense, index) => {
             return (
-              <div className={`card  mb-3 col-10`}>
-                <div
-                  class={`card-header fontWhite ${
-                    circleColor[expense.category]
-                  }`}
-                >
-                  {expense.name}
-                  {index === 0 && <span class="badge bg-dark new">New</span>}
-                </div>
-                <div class="card-body">
-                  <p class="card-text">
-                    <b>Category : </b>
-                    {expense.category}
-                  </p>
-                  <p class="card-text">
-                    <b>Price : </b>
-                    {priceWithComma(expense.price)} Rs
-                  </p>
-                  <p class="card-text">
-                    <b>Date :</b> {expense.dateString}
-                  </p>
-                </div>
-
-                <div className="buttons ">
-                  <div className="iconDiv">
-                    <span
-                      class={`${categoriesIcon[expense.category]} ${
-                        iconColors[expense.category]
-                      } icon`}
-                    ></span>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      class="edit btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target={`#A${expense.id}Edit`}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      class="delete btn btn-danger"
-                      data-bs-toggle="modal"
-                      data-bs-target={`#A${expense.id}Delete`}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-                <Modal
-                  id={`A${expense.id}Delete`}
-                  idToDelete={expense.id}
-                  name={expense.name}
-                  type="Delete"
-                  refreshList={(value) => setRefreshList(value)}
-                />
-                <Modal
-                  id={`A${expense.id}Edit`}
-                  name={expense.name}
-                  type="Edit"
-                />
-              </div>
+              //       <button
+              //         type="button"
+              //         class="edit btn btn-primary"
+              //         data-bs-toggle="modal"
+              //         data-bs-target={`#A${expense.id}Edit`}
+              //       >
+              //         Edit
+              //       </button>
+              //   <Modal
+              //     id={`A${expense.id}Edit`}
+              //     name={expense.name}
+              //     type="Edit"
+              //   />
+              // </div>
+              <Card
+                expense={expense}
+                setRefreshList={(value) => setRefreshList(value)}
+                index={index}
+              />
             );
           })
+        ) : (
+          <div class="alert alert-danger col-10" role="alert">
+            No Data Available. <strong>Try adding data or changing filter</strong>
+          </div>
         )}
       </div>
       <Modal
@@ -377,7 +331,6 @@ function AddExpense() {
         type="Filter"
         sendFilterValues={(category) => getFilterValues(category)}
       />
-      
     </div>
   );
 }
