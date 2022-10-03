@@ -279,7 +279,7 @@ function AddExpense() {
         <div className="headers col-10">
           <div class="dropdown">
             <button
-              class="btn btn-warning dropdown-toggle"
+              class="btn btn-warning dropdown-toggle menuButtons"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
@@ -320,7 +320,7 @@ function AddExpense() {
           </div>
           <button
             type="button"
-            class="btn btn-primary "
+            class="btn btn-primary menuButtons "
             data-bs-toggle="modal"
             data-bs-target={`#filterModal`}
           >
@@ -328,7 +328,7 @@ function AddExpense() {
           </button>
           <button
             type="button"
-            class="btn btn-danger "
+            class="btn btn-danger menuButtons "
             onClick={() => {
               setFilterValues(null);
             }}

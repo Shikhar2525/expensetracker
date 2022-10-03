@@ -2,3 +2,9 @@
     font-size: smaller;
     color: white;
 }
+
+@media screen and (max-device-width: 640px) {
+    .btn{
+        margin-top: 10px;
+    }
+}

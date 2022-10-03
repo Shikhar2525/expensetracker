@@ -31,6 +31,9 @@ input[type="submit"] {
   .list-group-item {
     flex-direction: column;
   }
+  .menuButtons{
+    margin-top: 10px;
+  }
 
   .details {
   }
