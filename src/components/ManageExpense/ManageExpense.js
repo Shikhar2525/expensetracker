@@ -70,7 +70,7 @@ function AddExpense() {
     const data = await ExpenseService.addExpense(expense);
     setSpinner(false);
     SetCreateResponse(true);
-    setFilterValues(null)
+    setFilterValues(null);
     fetchDataAPI();
   };
 
@@ -108,7 +108,6 @@ function AddExpense() {
     });
     return priceWithComma(total);
   };
-
 
   function formatDate(date) {
     var d = new Date(date),
@@ -273,16 +272,69 @@ function AddExpense() {
             Total
             <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
+        </div>
+
+        <div className="headers col-10">
+          <div class="dropdown">
+            <button
+              class="btn btn-warning dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Quick Filters{" "}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li
+                onClick={() =>
+                  setFilterValues({ date: new Date(), category: null })
+                }
+              >
+                <p class="dropdown-item">This Month</p>
+              </li>
+              <li
+                onClick={() =>
+                  setFilterValues({ date: null, category: "Rent" })
+                }
+              >
+                <p class="dropdown-item">Category : Rent</p>
+              </li>
+              <li
+                onClick={() =>
+                  setFilterValues({ date: null, category: "Travel" })
+                }
+              >
+                <p class="dropdown-item">Category : Travel</p>
+              </li>
+              <li
+                onClick={() =>
+                  setFilterValues({ date: null, category: "Food and dining" })
+                }
+              >
+                <p class="dropdown-item">Category : Food and dining</p>
+              </li>
+            </ul>
+          </div>
           <button
             type="button"
-            class="btn btn-primary mb-2 total"
+            class="btn btn-primary mb-2 mt-2"
             data-bs-toggle="modal"
             data-bs-target={`#filterModal`}
           >
             <i class="bi bi-funnel"></i> Filter
           </button>
+          <button
+            type="button"
+            class="btn btn-danger mb-2"
+            onClick={() => {
+              setFilterValues(null);
+            }}
+            disabled={!filterValues}
+          >
+            Remove Filters
+          </button>
         </div>
-
         {spinner2 ? (
           <div class="spinner-border" role="status">
             <span class="sr-only"></span>

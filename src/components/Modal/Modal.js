@@ -15,10 +15,10 @@ function Modal(props) {
     setSpinner(false);
     props.refreshList(true);
   };
-  const [startDate, setStartDate] = useState();
+  const [startDate, setStartDate] = useState(new Date());
 
   const handleClick = () => {
-    props.sendFilterValues({category,startDate});
+    props.sendFilterValues({ category, startDate });
     document.getElementById("filterCLose").click();
     document.getElementsByClassName(".modal-backdrop").remove();
   };
@@ -169,7 +169,13 @@ function Modal(props) {
                     />
                   </div>
                   <div class="form-group mt-1">
-                    <button type="button" className="btn" onClick={()=>setStartDate(null)}>Reset date</button>
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => setStartDate(null)}
+                    >
+                      Reset date
+                    </button>
                   </div>
                 </form>
               </div>

@@ -12,7 +12,7 @@ input[type="submit"] {
   justify-content: space-between;
 }
 .total {
-  width: 35%;
+  width: 100%;
 
   font-size: 1rem;
 }
