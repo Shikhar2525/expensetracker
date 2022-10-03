@@ -376,7 +376,7 @@ function AddExpense() {
             );
           })
         ) : (
-          <div class="alert alert-danger col-10" role="alert">
+          <div class="alert alert-danger col-10 mt-3" role="alert">
             No Data Available.{" "}
             <strong>Try adding data or changing filter</strong>
           </div>

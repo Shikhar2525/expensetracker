@@ -72,7 +72,7 @@ function Stats() {
           )}
         </div>
 
-        {categoryExpense().map((expense) => {
+        {categoryExpense().map((expense, index) => {
           return (
             <>
               <div className="progress mt-3">
@@ -82,7 +82,11 @@ function Stats() {
                   style={{ width: `${calcPercent(expense.value)}%` }}
                 ></div>
               </div>
-              <label>
+              <label
+                className={`${
+                  categoryExpense().length - 1 === index ? "mb-5" : ""
+                }`}
+              >
                 {expense.name}{" "}
                 {Math.round(calcPercent(expense.value) * 10) / 10 || "0"}%
               </label>
