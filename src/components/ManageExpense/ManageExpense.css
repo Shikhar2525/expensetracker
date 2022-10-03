@@ -48,7 +48,8 @@ input[type="submit"] {
   margin-left: 20px;
 }
 .details {
-  max-height: 970px;
+  max-height:  1221px;
+  height: 1221px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

@@ -252,11 +252,17 @@ function AddExpense() {
         </form>
         <div className="categoryExpense">
           <h5 className="mt-5">Category wise money spent</h5>
-          <ul class="list-group mb-3">
-            {Object.entries(categoryExpense()).map(([key, value]) => {
+          <ul class="list-group">
+            {Object.entries(categoryExpense()).map(([key, value], index) => {
               return (
                 <>
-                  <li class="list-group-item">
+                  <li
+                    class={`list-group-item ${
+                      Object.entries(categoryExpense()).length - 1 === index
+                        ? "mb-4"
+                        : ""
+                    }`}
+                  >
                     <span
                       class={`${categoriesIcon[key]} ${iconColors[key]} icon`}
                     ></span>
