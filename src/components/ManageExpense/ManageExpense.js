@@ -320,7 +320,7 @@ function AddExpense() {
           </div>
           <button
             type="button"
-            class="btn btn-primary mb-2 mt-2"
+            class="btn btn-primary "
             data-bs-toggle="modal"
             data-bs-target={`#filterModal`}
           >
@@ -328,7 +328,7 @@ function AddExpense() {
           </button>
           <button
             type="button"
-            class="btn btn-danger mb-2"
+            class="btn btn-danger "
             onClick={() => {
               setFilterValues(null);
             }}

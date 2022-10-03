@@ -4,7 +4,7 @@ import './ExportCSV.css'
 function ExportCSV(props) {
     
   return (
-    <button  disabled={props.canDisable} className="btn btn-primary col-2 mb-2">
+    <button  disabled={props.canDisable} className="btn btn-primary col-2 mb-1">
       <CSVLink data={props.data} filename="expense_report">
         Report
       </CSVLink>
