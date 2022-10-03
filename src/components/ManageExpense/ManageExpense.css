@@ -13,7 +13,6 @@ input[type="submit"] {
 }
 .total {
   width: 100%;
-
   font-size: 1rem;
 }
 .headers {
@@ -78,13 +77,11 @@ input[type="submit"] {
   justify-content: space-between;
 }
 
-
 .edit,
 .delete {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-
 
 .red {
   background-color: red;
@@ -177,3 +174,11 @@ input[type="submit"] {
   opacity: 70%;
 }
 
+hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 83%;               
+  background-color:black;
+  height: 1px;
+}

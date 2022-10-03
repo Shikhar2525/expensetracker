@@ -12,6 +12,7 @@ import Modal from "../Modal/Modal";
 import ExpenseService from "../../services/expense.service";
 import { useAuth0 } from "@auth0/auth0-react";
 import Card from "../Card/Card";
+import ExportCSV from "../ExportCSV/ExportCSV";
 
 function AddExpense() {
   const [createResponse, SetCreateResponse] = useState(false);
@@ -268,11 +269,12 @@ function AddExpense() {
       </div>
       <div className="details col-12 col-xl-6 mt-4">
         <div className="headers col-10">
-          <button type="button" class="btn btn-dark mb-2  total">
+          <button type="button" class="btn  btn-dark  total">
             Total
             <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
         </div>
+        <hr />
 
         <div className="headers col-10">
           <div class="dropdown">
@@ -334,7 +336,9 @@ function AddExpense() {
           >
             Remove Filters
           </button>
+          <ExportCSV data={expenses} canDisable={!(expenses.length > 0)} />
         </div>
+        <hr />
         {spinner2 ? (
           <div class="spinner-border" role="status">
             <span class="sr-only"></span>
