@@ -8,7 +8,6 @@ function NavBar() {
     useAuth0();
   return (
     <div className={`navBar mt-4`}>
-    
       <div className="allElements  container">
         <div className="logoSpinner">
           <img

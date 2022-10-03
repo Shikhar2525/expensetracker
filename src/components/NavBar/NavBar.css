@@ -7,7 +7,12 @@
   justify-content: space-between;
   align-items: center;
 }
+
 @media screen and (max-device-width: 640px) {
+  .navBar{
+    align-items: center;
+    justify-content: center;
+  }
   .allElements {
     flex-direction: column;
     align-items: center;

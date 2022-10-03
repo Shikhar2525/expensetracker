@@ -16,14 +16,13 @@ function App() {
       <NavBar />
       <Routes>
         <Route index element={<Home />} />
-
         <Route
           path="add"
-          element={isAuthenticated ? <AddExpense /> :<Welcome />}
+          element={isAuthenticated ? <AddExpense /> : <Welcome />}
         />
         <Route
           path="stats"
-          element={isAuthenticated ? <Stats /> :<Welcome />}
+          element={isAuthenticated ? <Stats /> : <Welcome />}
         />
         <Route path="*" element={<NoPage />} />
       </Routes>
