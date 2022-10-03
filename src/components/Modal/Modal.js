@@ -3,6 +3,7 @@ import ExpenseService from "../../services/expense.service";
 import { useState } from "react";
 import { categories } from "../../constants.ts";
 import DatePicker from "react-datepicker";
+import './Modal.css'
 import "react-datepicker/dist/react-datepicker.css";
 
 function Modal(props) {
@@ -169,13 +170,13 @@ function Modal(props) {
                     />
                   </div>
                   <div class="form-group mt-1">
-                    <button
+                    <p
                       type="button"
-                      className="btn"
+                      className="resetDate"
                       onClick={() => setStartDate(null)}
                     >
                       Reset date
-                    </button>
+                    </p>
                   </div>
                 </form>
               </div>
