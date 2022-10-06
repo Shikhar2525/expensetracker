@@ -21,6 +21,7 @@ function AddExpense() {
   const [spinner2, setSpinner2] = useState(false);
   const [refreshList, setRefreshList] = useState(false);
   const [filterValues, setFilterValues] = useState();
+  const [copyOfAllData, setCopyOfAllData] = useState([]);
 
   const { isAuthenticated, user, isLoading } = useAuth0();
 
@@ -44,23 +45,30 @@ function AddExpense() {
     return allCategoryTotal;
   };
 
-  const fetchDataAPI = async () => {
+  const fetchDataAPI = async (mode) => {
     setSpinner2(true);
     let allExpenses = [];
 
-    const data = await ExpenseService.getAllExpenses(user, filterValues);
+    const data = await ExpenseService.getAllExpenses(
+      user,
+      mode === "ADD" ? null : filterValues
+    );
 
     const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     for (let key in json) {
       allExpenses.push(json[key]);
     }
-    console.log(allExpenses);
     allExpenses.forEach((value, index) => {
       allExpenses[index].date = new Date(allExpenses[index].date);
     });
     const sortedAsc = allExpenses.sort(
       (objA, objB) => Number(objA.createdDate) - Number(objB.createdDate)
     );
+
+    console.log(mode);
+    if (mode === "ADD") {
+      setCopyOfAllData(sortedAsc);
+    }
 
     setExpenses(sortedAsc);
     setSpinner2(false);
@@ -72,9 +80,35 @@ function AddExpense() {
     setSpinner(false);
     SetCreateResponse(true);
     setFilterValues(null);
-    fetchDataAPI();
+    fetchDataAPI("ADD");
     // document.getElementById('line').focus();
   };
+
+  function categoryFreq(key) {
+    let arr2 = [];
+    copyOfAllData.forEach((x) => {
+      if (
+        arr2.some((val) => {
+          return val[key] == x[key];
+        })
+      ) {
+        arr2.forEach((k) => {
+          if (k[key] === x[key]) {
+            k["occurrence"]++;
+          }
+        });
+      } else {
+        let a = {};
+        a[key] = x[key];
+        a["occurrence"] = 1;
+        arr2.push(a);
+      }
+    });
+    const sortedDesc = arr2.sort(
+      (objA, objB) => Number(objB.occurrence) - Number(objA.occurrence)
+    );
+    return sortedDesc;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -97,6 +131,10 @@ function AddExpense() {
       year: newDate.getFullYear(),
     };
     addExpenseAPI(newExpense);
+    document.getElementById("ExpenseName").value = "";
+    document.getElementById("Price").value = "";
+    document.getElementById("category").value = "";
+    document.getElementById("date").value = "";
   };
 
   const priceWithComma = (price) => {
@@ -146,12 +184,15 @@ function AddExpense() {
       date: valueObj.startDate,
     });
   };
+
   useEffect(() => {
-    fetchDataAPI();
+    fetchDataAPI("ADD");
   }, []);
 
   useEffect(() => {
-    if (refreshList) fetchDataAPI();
+    if (refreshList) {
+      fetchDataAPI("ADD");
+    }
   }, [refreshList]);
 
   useEffect(() => {
@@ -301,27 +342,24 @@ function AddExpense() {
               >
                 <p class="dropdown-item">This Month</p>
               </li>
-              <li
-                onClick={() =>
-                  setFilterValues({ date: null, category: "Rent" })
-                }
-              >
-                <p class="dropdown-item">Category : Rent</p>
-              </li>
-              <li
-                onClick={() =>
-                  setFilterValues({ date: null, category: "Travel" })
-                }
-              >
-                <p class="dropdown-item">Category : Travel</p>
-              </li>
-              <li
-                onClick={() =>
-                  setFilterValues({ date: null, category: "Food and dining" })
-                }
-              >
-                <p class="dropdown-item">Category : Food and dining</p>
-              </li>
+              {categoryFreq("category")
+                .slice(0, 3)
+                .map((value) => {
+                  return (
+                    <li
+                      onClick={() =>
+                        setFilterValues({
+                          date: null,
+                          category: value.category,
+                        })
+                      }
+                    >
+                      <p class="dropdown-item">
+                        Category : {value.category} ({value.occurrence})
+                      </p>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
           <div class="vr"></div>
