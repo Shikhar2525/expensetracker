@@ -81,7 +81,7 @@ function AddExpense() {
     SetCreateResponse(true);
     setFilterValues(null);
     fetchDataAPI("ADD");
-    // document.getElementById('line').focus();
+    document.getElementById("focusElement").scrollIntoView({behavior: 'smooth'});
   };
 
   function categoryFreq(key) {
@@ -135,6 +135,8 @@ function AddExpense() {
     document.getElementById("Price").value = "";
     document.getElementById("category").value = "";
     document.getElementById("date").value = "";
+    document.getElementById("checkbox").checked=false;
+
   };
 
   const priceWithComma = (price) => {
@@ -197,7 +199,6 @@ function AddExpense() {
 
   useEffect(() => {
     fetchDataAPI();
-    // document.getElementById('line').focus();
   }, [filterValues]);
 
   useEffect(() => {
@@ -385,6 +386,7 @@ function AddExpense() {
           <div class="vr"></div>
           <ExportCSV data={expenses} canDisable={!(expenses.length > 0)} />
         </div>
+        <span id="focusElement"></span>
         {spinner2 ? (
           <div class="spinner-border" role="status">
             <span class="sr-only"></span>

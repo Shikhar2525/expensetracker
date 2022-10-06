@@ -5,7 +5,7 @@ import { categoriesIcon, iconColors } from "../../constants.ts";
 function Card(props) {
   return (
     <>
-      <div class="card mt-3 mb-3 col-10 ">
+      <div class="card mt-3 mb-3 col-10">
         <div class="card-body">
           <div class="d-flex flex-column flex-lg-row">
             <div className="iconDiv">
