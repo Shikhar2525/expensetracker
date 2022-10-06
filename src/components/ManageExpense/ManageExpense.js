@@ -81,7 +81,9 @@ function AddExpense() {
     SetCreateResponse(true);
     setFilterValues(null);
     fetchDataAPI("ADD");
-    document.getElementById("focusElement").scrollIntoView({behavior: 'smooth'});
+    document
+      .getElementById("focusElement")
+      .scrollIntoView({ behavior: "smooth" });
   };
 
   function categoryFreq(key) {
@@ -135,8 +137,7 @@ function AddExpense() {
     document.getElementById("Price").value = "";
     document.getElementById("category").value = "";
     document.getElementById("date").value = "";
-    document.getElementById("checkbox").checked=false;
-
+    document.getElementById("checkbox").checked = false;
   };
 
   const priceWithComma = (price) => {
@@ -324,7 +325,8 @@ function AddExpense() {
             <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
         </div>
-        <div className="headers col-10 mt-2">
+        <hr className="container-fluid col-10"/>
+        <div className="headers col-10 ">
           <div class="dropdown">
             <button
               class="btn btn-warning dropdown-toggle menuButtons"
@@ -386,6 +388,25 @@ function AddExpense() {
           <div class="vr"></div>
           <ExportCSV data={expenses} canDisable={!(expenses.length > 0)} />
         </div>
+        <hr className="container-fluid col-10"/>
+        <div className="headers col-10">
+          {filterValues && (
+            <div
+              class="alert alert-primary col-12  filterApplied"
+              role="alert"
+            >
+              Filter applied on {" "}
+              <u>
+                {filterValues?.date?.toString() ? "Date" : ""}
+                {filterValues?.date?.toString() && filterValues?.category ? ' & ':''}
+                {filterValues?.category
+                  ? `Category: ${filterValues?.category}`
+                  : ""}
+              </u>
+            </div>
+          )}
+        </div>
+        {filterValues && (<hr className="container-fluid col-10"/>)}
         <span id="focusElement"></span>
         {spinner2 ? (
           <div class="spinner-border" role="status">

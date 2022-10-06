@@ -180,10 +180,12 @@ input[type="submit"] {
   opacity: 70%;
 }
 
-hr {
-  color: gray;
-  border-style: inset;
-  border-width: 1px;
-  margin: 0.5em auto;
+.filterApplied{
+ 
+    margin-bottom: 1px;
+    height: 30px;
+    line-height:30px;
+    padding:0px 15px;
+  
 }
 
