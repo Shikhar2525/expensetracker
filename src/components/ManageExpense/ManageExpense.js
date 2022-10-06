@@ -345,6 +345,13 @@ function AddExpense() {
               >
                 <p class="dropdown-item">This Month</p>
               </li>
+              <li
+                onClick={() =>
+                  setFilterValues({ date: null, category: null,thisYear:true })
+                }
+              >
+                <p class="dropdown-item">This Year</p>
+              </li>
               {categoryFreq("category")
                 .slice(0, 3)
                 .map((value) => {
@@ -397,7 +404,7 @@ function AddExpense() {
             >
               Filter applied on {" "}
               <u>
-                {filterValues?.date?.toString() ? "Date" : ""}
+                {filterValues?.date?.toString() || filterValues?.thisYear ? "Date" : ""}
                 {filterValues?.date?.toString() && filterValues?.category ? ' & ':''}
                 {filterValues?.category
                   ? `Category: ${filterValues?.category}`
