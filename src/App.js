@@ -7,6 +7,7 @@ import AddExpense from "./components/ManageExpense/ManageExpense";
 import NoPage from "./components/NoPage/NoPage";
 import { useAuth0 } from "@auth0/auth0-react";
 import Welcome from "./components/Welcome/Welcome";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 function App() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
@@ -14,6 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <ScrollToTop />
       <Routes>
         <Route index element={<Home />} />
         <Route
