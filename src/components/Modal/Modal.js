@@ -19,7 +19,7 @@ function Modal(props) {
     let elements = document.getElementsByClassName("modal-backdrop");
     var arr = [...elements];
     arr.forEach((value) => {
-      value.style.display = "none";
+      value.remove();
     });
   };
   const deleteExpense = async (idToDelete) => {
@@ -27,7 +27,7 @@ function Modal(props) {
     await ExpenseService.deleteExpense(idToDelete);
     document.getElementById("deleteClose").click();
     setSpinner(false);
-    removeBackDropModal();
+    removeBackDropModal()
     props.refreshList(true);
   };
 
@@ -42,7 +42,7 @@ function Modal(props) {
     };
     await ExpenseService.updateExpense(idToEdit, newExpense);
     setSpinner2(false);
-    removeBackDropModal();
+    removeBackDropModal()
     props.refreshList(true);
   };
 
