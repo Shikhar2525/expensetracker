@@ -224,6 +224,9 @@ function AddExpense() {
         )}
         <form className="mt-4" onSubmit={handleSubmit} method="POST">
           <div className="form-group">
+            <label for="Price">
+              Expense Name <span className="redStar">*</span>
+            </label>
             <input
               type="text"
               className="form-control"
@@ -235,7 +238,7 @@ function AddExpense() {
           </div>
           <div class="form-group mt-3">
             <label for="Price">
-              Price <span className="redStar">*</span>
+              Price (Rs)<span className="redStar">*</span>
             </label>
             <input
               type="number"
@@ -318,14 +321,14 @@ function AddExpense() {
           </ul>
         </div>
       </div>
-      <div className="details col-12 col-xl-6 mt-4">
+      <div className="details col-12 col-xl-6 mt-5">
         <div className="headers col-10">
           <button type="button" class="btn  btn-dark  total">
             Total
             <span class="badge bg-secondary ">{totalExpense()} Rs</span>
           </button>
         </div>
-        <hr className="container-fluid col-10"/>
+        <hr className="container-fluid col-10" />
         <div className="headers col-10 ">
           <div class="dropdown">
             <button
@@ -347,7 +350,11 @@ function AddExpense() {
               </li>
               <li
                 onClick={() =>
-                  setFilterValues({ date: null, category: null,thisYear:true })
+                  setFilterValues({
+                    date: null,
+                    category: null,
+                    thisYear: true,
+                  })
                 }
               >
                 <p class="dropdown-item">This Year</p>
@@ -395,17 +402,18 @@ function AddExpense() {
           <div class="vr"></div>
           <ExportCSV data={expenses} canDisable={!(expenses.length > 0)} />
         </div>
-        <hr className="container-fluid col-10"/>
+        <hr className="container-fluid col-10" />
         <div className="headers col-10">
           {filterValues && (
-            <div
-              class="alert alert-primary col-12  filterApplied"
-              role="alert"
-            >
-              Filter applied on {" "}
+            <div class="alert alert-primary col-12  filterApplied" role="alert">
+              Filter applied on{" "}
               <u>
-                {filterValues?.date?.toString() || filterValues?.thisYear ? "Date" : ""}
-                {filterValues?.date?.toString() && filterValues?.category ? ' & ':''}
+                {filterValues?.date?.toString() || filterValues?.thisYear
+                  ? "Date"
+                  : ""}
+                {filterValues?.date?.toString() && filterValues?.category
+                  ? " & "
+                  : ""}
                 {filterValues?.category
                   ? `Category: ${filterValues?.category}`
                   : ""}
@@ -413,7 +421,7 @@ function AddExpense() {
             </div>
           )}
         </div>
-        {filterValues && (<hr className="container-fluid col-10"/>)}
+        {filterValues && <hr className="container-fluid col-10" />}
         <span id="focusElement"></span>
         {spinner2 ? (
           <div class="spinner-border" role="status">
@@ -422,20 +430,6 @@ function AddExpense() {
         ) : expenses.length > 0 ? (
           reverseArr(expenses).map((expense, index) => {
             return (
-              //       <button
-              //         type="button"
-              //         class="edit btn btn-primary"
-              //         data-bs-toggle="modal"
-              //         data-bs-target={`#A${expense.id}Edit`}
-              //       >
-              //         Edit
-              //       </button>
-              //   <Modal
-              //     id={`A${expense.id}Edit`}
-              //     name={expense.name}
-              //     type="Edit"
-              //   />
-              // </div>
               <Card
                 expense={expense}
                 setRefreshList={(value) => setRefreshList(value)}

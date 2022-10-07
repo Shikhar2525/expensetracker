@@ -24,17 +24,30 @@ function Card(props) {
                       <span class="badge bg-danger new mt-1">New</span>
                     </h6>
                   )}
+                 
                 </div>
                 <span class="badge bg-secondary">{props.expense.category}</span>
                 <span class="badge bg-success">{props.expense.dateString}</span>
+                {props.expense.isEdited && (
+                  <span class="badge bg-primary mt-1">Edited</span>
+                )}
               </div>
               <div class="col-sm-4 py-2">
                 <span class="badge bg-secondary">{props.expense.price} Rs</span>
               </div>
-              <div class="col-sm-3 text-lg-end">
+              <div class="col-sm-3 text-lg-end buttons">
+                <h5>
+                  <i
+                    type="button"
+                    class="bi bi-pencil-square mt-4"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#A${props.expense.id}Edit`}
+                  ></i>
+                </h5>
+
                 <button
                   type="button"
-                  class="btn-close mt-3"
+                  class="btn-close mt-4"
                   data-bs-toggle="modal"
                   data-bs-target={`#A${props.expense.id}Delete`}
                   aria-label="Close"
@@ -49,6 +62,14 @@ function Card(props) {
         idToDelete={props.expense.id}
         name={props.expense.name}
         type="Delete"
+        refreshList={(value) => props.setRefreshList(value)}
+      />
+      <Modal
+        id={`A${props.expense.id}Edit`}
+        idToEdit={props.expense.id}
+        name={props.expense.name}
+        expense={props.expense}
+        type="Edit"
         refreshList={(value) => props.setRefreshList(value)}
       />
     </>

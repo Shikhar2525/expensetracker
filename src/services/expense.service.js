@@ -22,7 +22,11 @@ class ExpenseService {
   getAllExpenses = (user, filterValues) => {
     const email = where("user", "==", user.email);
     const month = where("month", "==", new Date(filterValues?.date).getMonth());
-    const year = where("year", "==", new Date(filterValues?.date).getFullYear());
+    const year = where(
+      "year",
+      "==",
+      new Date(filterValues?.date).getFullYear()
+    );
     const thisYear = where("year", "==", new Date().getFullYear());
     const category = where("category", "==", filterValues?.category);
     let queryRef = query(
@@ -31,11 +35,17 @@ class ExpenseService {
       filterValues?.date ? month : email,
       filterValues?.date ? year : email,
       filterValues?.category ? category : email,
-      filterValues?.thisYear ? thisYear :email
+      filterValues?.thisYear ? thisYear : email
     );
 
     return getDocs(queryRef);
   };
+
+  updateExpense = (id, updateExpense) => {
+    const expenseDoc = doc(db, "allexpenses", id);
+    return updateDoc(expenseDoc, updateExpense);
+  };
+
   deleteExpense = (id) => {
     const expense = doc(db, "allexpenses", id);
     return deleteDoc(expense);
