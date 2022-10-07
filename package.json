@@ -17,6 +17,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+    "react-top-loading-bar": "^2.3.1",
     "recharts": "^2.1.14",
     "web-vitals": "^2.1.4"
   },

@@ -8,12 +8,29 @@ import NoPage from "./components/NoPage/NoPage";
 import { useAuth0 } from "@auth0/auth0-react";
 import Welcome from "./components/Welcome/Welcome";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import LoadingBar from "react-top-loading-bar";
+import { useState, useEffect } from "react";
 
 function App() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
     useAuth0();
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if(isLoading){
+      setProgress(100)
+    }
+  },[isLoading])
+  
   return (
     <BrowserRouter>
+      <LoadingBar
+        color="#f11946"
+        progress={progress}
+        loaderSpeed={1700}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      
       <NavBar />
       <ScrollToTop />
       <Routes>
