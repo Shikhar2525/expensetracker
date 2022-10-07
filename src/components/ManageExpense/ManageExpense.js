@@ -421,7 +421,7 @@ function AddExpense() {
             </div>
           )}
         </div>
-        {filterValues && <hr className="container-fluid col-10" />}
+        {filterValues && <hr className="container-fluid col-10 mt-1" />}
         <span id="focusElement"></span>
         {spinner2 ? (
           <div class="spinner-border" role="status">
