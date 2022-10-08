@@ -14,7 +14,7 @@ function Welcome() {
           <div className="buttons">
             {isAuthenticated ? (
               <>
-                <Link to="/add">
+                <Link to="/manage">
                   <input
                     type="submit"
                     className="btn btnLogin btn-dark mt-4 "

@@ -3,13 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Stats from "./components/Stats/Stats";
 import NavBar from "./components/NavBar/NavBar";
-import AddExpense from "./components/ManageExpense/ManageExpense";
 import NoPage from "./components/NoPage/NoPage";
 import { useAuth0 } from "@auth0/auth0-react";
 import Welcome from "./components/Welcome/Welcome";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import LoadingBar from "react-top-loading-bar";
 import { useState, useEffect } from "react";
+import ManageExpense from "./components/ManageExpense/ManageExpense";
 
 function App() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
@@ -36,8 +36,8 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route
-          path="add"
-          element={isAuthenticated ? <AddExpense /> : <Welcome />}
+          path="manage"
+          element={isAuthenticated ? <ManageExpense /> : <Welcome />}
         />
         <Route
           path="stats"

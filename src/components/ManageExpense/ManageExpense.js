@@ -14,7 +14,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Card from "../Card/Card";
 import ExportCSV from "../ExportCSV/ExportCSV";
 
-function AddExpense() {
+function ManageExpense() {
   const [createResponse, SetCreateResponse] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [spinner, setSpinner] = useState(false);
@@ -453,4 +453,4 @@ function AddExpense() {
   );
 }
 
-export default AddExpense;
+export default ManageExpense;

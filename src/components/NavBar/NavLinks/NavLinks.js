@@ -9,7 +9,7 @@ function NavLinks() {
           <Link to="/">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <Link to="/add">Add Expense</Link>
+          <Link to="/manage">Manage Expense</Link>
         </li>
         <li className="breadcrumb-item">
           <Link to="/stats">Statistics</Link>

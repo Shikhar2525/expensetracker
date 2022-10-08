@@ -56,9 +56,9 @@ function Stats() {
   };
 
   const getChartData = () => {
-    let labels = [];
-    let series = [];
-    let colors = [];
+    let labels=[];
+    let series=[];
+    let colors=[];
 
     categoryExpense().forEach((pair, index) => {
       if (pair.value !== 0) {
@@ -97,12 +97,37 @@ function Stats() {
 
   useEffect(() => {
     fetchDataAPI();
-    getChartData();
+    console.log(getChartData().series);
   }, []);
 
   return (
     <div className="container main">
       <div className="left mb-5 col-6">
+        <div className="head1 ">
+          <h2>Grpahical Representation</h2>
+          {spinner ? (
+            <div class="spinner-border mt-1" role="status">
+              <span class="sr-only"></span>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        {chartData.series.length ? (
+          <ReactApexChart
+            options={chartData.options}
+            series={chartData.series}
+            type="pie"
+            width={600}
+            className="mt-3 graph mb-3"
+          />
+        ) : (
+          <div class="alert alert-danger col-10 mt-3" role="alert">
+            No Data Available.
+          </div>
+        )}
+      </div>
+      <div className="right mb-5 col-6">
         <div className="head">
           <h2>Statistics</h2>
           {spinner ? (
@@ -135,25 +160,6 @@ function Stats() {
             </>
           );
         })}
-      </div>
-      <div className="right mb-5 col-6">
-        <div className="head1">
-          <h2>Grpahical Representation</h2>
-          {spinner ? (
-            <div class="spinner-border mt-1" role="status">
-              <span class="sr-only"></span>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-        <ReactApexChart
-          options={chartData.options}
-          series={chartData.series}
-          type="pie"
-          width={600}
-          className="mt-3 graph"
-        />
       </div>
     </div>
   );
