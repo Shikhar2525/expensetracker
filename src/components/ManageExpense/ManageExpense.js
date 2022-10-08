@@ -14,6 +14,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Card from "../Card/Card";
 import ExportCSV from "../ExportCSV/ExportCSV";
 import ReactApexChart from "react-apexcharts";
+import { async } from "@firebase/util";
 
 function ManageExpense() {
   const [createResponse, SetCreateResponse] = useState(false);
@@ -25,6 +26,7 @@ function ManageExpense() {
   const [filterValues, setFilterValues] = useState();
   const [copyOfAllData, setCopyOfAllData] = useState([]);
   const [monthlyLimit, setMonthlyLimit] = useState();
+  const [copyMonthData, setCopyMonthData] = useState([]);
 
   const { isAuthenticated, user, isLoading } = useAuth0();
 
@@ -194,7 +196,6 @@ function ManageExpense() {
   const fetchMonthlyLimit = async (id) => {
     let data = await ExpenseService.getMonthlyLimit(user);
     const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    console.log("fetch api called", json);
     setMonthlyLimit(json);
     return json;
   };
@@ -202,7 +203,6 @@ function ManageExpense() {
   const createMonthlyLimit = async (e) => {
     e.preventDefault();
     const limit = document.getElementById("limit").value;
-    console.log(monthlyLimit);
     setSpinner3(true);
     if (monthlyLimit.length === 0) {
       await ExpenseService.addMonthlyLimit({
@@ -223,22 +223,34 @@ function ManageExpense() {
   };
 
   const isLimitReached = () => {
-    return totalExpense(copyOfAllData) >= monthlyLimit?.[0]?.limit;
+    return totalExpense(copyMonthData) >= monthlyLimit?.[0]?.limit;
+  };
+
+  const copyFilterByMonthData = async () => {
+    const data = await ExpenseService.getAllExpenses(user, {
+      date: new Date(),
+      category: null,
+    });
+    const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    setCopyMonthData(json);
   };
 
   useEffect(() => {
     fetchDataAPI("ADD");
     fetchMonthlyLimit();
+    copyFilterByMonthData();
   }, []);
 
   useEffect(() => {
     if (refreshList) {
       fetchDataAPI("ADD");
+      copyFilterByMonthData();
     }
   }, [refreshList]);
 
   useEffect(() => {
     fetchDataAPI();
+    copyFilterByMonthData();
   }, [filterValues]);
 
   useEffect(() => {
@@ -382,17 +394,19 @@ function ManageExpense() {
           >
             Set Monthly Limit
           </button>
-          <button
-            type=""
-            class={`btn  ${
-              isLimitReached() ? "limitbutton btn-danger" : "bg-success"
-            }`}
-          >
-            Current Monthly Limit : {"  "}
-            <strong className="">
-              {priceWithComma(monthlyLimit?.[0]?.limit) || "0"} Rs{" "}
-            </strong>
-          </button>
+          {monthlyLimit?.[0]?.limit != 0 && (
+            <button
+              type=""
+              class={`btn  ${
+                isLimitReached() ? "limitbutton btn-danger" : "bg-success"
+              }`}
+            >
+              Current Monthly Limit : {"  "}
+              <strong className="">
+                {priceWithComma(monthlyLimit?.[0]?.limit) || "0"} Rs{" "}
+              </strong>
+            </button>
+          )}
         </div>
         <div className="headers1 col-10 ">
           <div class="collapse mt-3" id="collapseExample">

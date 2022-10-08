@@ -97,7 +97,6 @@ function Stats() {
 
   useEffect(() => {
     fetchDataAPI();
-    console.log(getChartData().series);
   }, []);
 
   return (
