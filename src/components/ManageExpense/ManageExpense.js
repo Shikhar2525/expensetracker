@@ -13,15 +13,18 @@ import ExpenseService from "../../services/expense.service";
 import { useAuth0 } from "@auth0/auth0-react";
 import Card from "../Card/Card";
 import ExportCSV from "../ExportCSV/ExportCSV";
+import ReactApexChart from "react-apexcharts";
 
 function ManageExpense() {
   const [createResponse, SetCreateResponse] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const [spinner2, setSpinner2] = useState(false);
+  const [spinner3, setSpinner3] = useState(false);
   const [refreshList, setRefreshList] = useState(false);
   const [filterValues, setFilterValues] = useState();
   const [copyOfAllData, setCopyOfAllData] = useState([]);
+  const [monthlyLimit, setMonthlyLimit] = useState();
 
   const { isAuthenticated, user, isLoading } = useAuth0();
 
@@ -55,6 +58,7 @@ function ManageExpense() {
     );
 
     const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
     for (let key in json) {
       allExpenses.push(json[key]);
     }
@@ -65,7 +69,6 @@ function ManageExpense() {
       (objA, objB) => Number(objA.createdDate) - Number(objB.createdDate)
     );
 
-    console.log(mode);
     if (mode === "ADD") {
       setCopyOfAllData(sortedAsc);
     }
@@ -141,15 +144,15 @@ function ManageExpense() {
   };
 
   const priceWithComma = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const totalExpense = () => {
+  const totalExpense = (expenses) => {
     let total = 0;
     expenses.forEach((e) => {
       total = total + parseInt(e.price);
     });
-    return priceWithComma(total);
+    return total;
   };
 
   function formatDate(date) {
@@ -188,8 +191,44 @@ function ManageExpense() {
     });
   };
 
+  const fetchMonthlyLimit = async (id) => {
+    let data = await ExpenseService.getMonthlyLimit(user);
+    const json = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    console.log("fetch api called", json);
+    setMonthlyLimit(json);
+    return json;
+  };
+
+  const createMonthlyLimit = async (e) => {
+    e.preventDefault();
+    const limit = document.getElementById("limit").value;
+    console.log(monthlyLimit);
+    setSpinner3(true);
+    if (monthlyLimit.length === 0) {
+      await ExpenseService.addMonthlyLimit({
+        id: uuid(),
+        user: user.email,
+        limit: limit,
+      });
+      setMonthlyLimit(limit);
+    } else {
+      await ExpenseService.updateLimit(monthlyLimit[0].id, {
+        id: monthlyLimit[0].id,
+        user: user.email,
+        limit: limit,
+      });
+      fetchMonthlyLimit();
+      setSpinner3(false);
+    }
+  };
+
+  const isLimitReached = () => {
+    return totalExpense(copyOfAllData) >= monthlyLimit?.[0]?.limit;
+  };
+
   useEffect(() => {
     fetchDataAPI("ADD");
+    fetchMonthlyLimit();
   }, []);
 
   useEffect(() => {
@@ -325,9 +364,78 @@ function ManageExpense() {
         <div className="headers col-10">
           <button type="button" class="btn  btn-dark  total">
             Total
-            <span class="badge bg-secondary ">{totalExpense()} Rs</span>
+            <span class="badge bg-secondary ">
+              {priceWithComma(totalExpense(expenses))} Rs
+            </span>
           </button>
         </div>
+
+        <hr className="container-fluid col-10" />
+        <div className="headers1 col-10 ">
+          <button
+            class="btn btn-danger"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            Set Monthly Limit
+          </button>
+          <button
+            type=""
+            class={`btn  ${
+              isLimitReached() ? "limitbutton btn-danger" : "bg-success"
+            }`}
+          >
+            Current Monthly Limit : {"  "}
+            <strong className="">
+              {priceWithComma(monthlyLimit?.[0]?.limit) | "0"} Rs{" "}
+            </strong>
+          </button>
+        </div>
+        <div className="headers1 col-10 ">
+          <div class="collapse mt-3" id="collapseExample">
+            <div class="card card-body">
+              <form onSubmit={createMonthlyLimit} method="POST">
+                <div className="form-group">
+                  <label for="Price">
+                    Set Limit (Rs)<span className="redStar">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control mt-2"
+                    id="limit"
+                    aria-describedby="limit"
+                    placeholder="Enter monthly limit"
+                    defaultValue={monthlyLimit?.[0]?.limit}
+                    required
+                  />
+                </div>
+                <div className="limitButtons">
+                  <input
+                    type="submit"
+                    className="btn btn-dark mt-3 "
+                    value="Add"
+                  />
+                  {spinner3 ? (
+                    <div class="spinner-border mt-3" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {isLimitReached() && (
+          <div class="alert alert-danger col-10 mt-3" role="alert">
+            You have reached monthly limit
+          </div>
+        )}
+
         <hr className="container-fluid col-10" />
         <div className="headers col-10 ">
           <div class="dropdown">

@@ -27,7 +27,7 @@ function Modal(props) {
     await ExpenseService.deleteExpense(idToDelete);
     document.getElementById("deleteClose").click();
     setSpinner(false);
-    removeBackDropModal()
+    removeBackDropModal();
     props.refreshList(true);
   };
 
@@ -42,7 +42,7 @@ function Modal(props) {
     };
     await ExpenseService.updateExpense(idToEdit, newExpense);
     setSpinner2(false);
-    removeBackDropModal()
+    removeBackDropModal();
     props.refreshList(true);
   };
 
@@ -55,7 +55,6 @@ function Modal(props) {
   const handleChangeDropdown = (e) => {
     setCategory(e.target.value);
   };
-
   return (
     <>
       {props.type === "Delete" ? (

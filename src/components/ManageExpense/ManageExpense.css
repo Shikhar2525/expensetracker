@@ -20,6 +20,48 @@ input[type="submit"] {
   align-items: center;
   justify-content: space-between;
 }
+.headers1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.limitButtons {
+  display: flex;
+  align-items: center;
+}
+
+.limitbutton {
+  background-color: #1c87c9;
+  -webkit-border-radius: 60px;
+  border-radius: 60px;
+  border: none;
+  color: #eeeeee;
+  cursor: pointer;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 20px;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+}
+@keyframes glowing {
+  0% {
+    background-color: red;
+    box-shadow: 0 0 5px rgb(248, 115, 115);
+  }
+  50% {
+    background-color: red;
+    box-shadow: 0 0 20px rgb(253, 92, 92);
+  }
+  100% {
+    background-color: red;
+    box-shadow: 0 0 5px rgb(255, 63, 63);
+  }
+}
+.limitbutton {
+  animation: glowing 1300ms infinite;
+}
+
 @media screen and (max-device-width: 640px) {
   .main {
     flex-direction: column;
@@ -34,7 +76,7 @@ input[type="submit"] {
   .menuButtons {
     margin-top: 10px;
   }
-  .vr{
+  .vr {
     display: none;
   }
   .details {
@@ -48,7 +90,7 @@ input[type="submit"] {
   margin-left: 20px;
 }
 .details {
-  max-height:  1221px;
+  max-height: 1221px;
   height: 1221px;
   overflow-y: auto;
   display: flex;
@@ -180,4 +222,9 @@ input[type="submit"] {
   opacity: 70%;
 }
 
-
+.limit {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: red;
+}
