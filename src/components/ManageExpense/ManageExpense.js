@@ -390,7 +390,7 @@ function ManageExpense() {
           >
             Current Monthly Limit : {"  "}
             <strong className="">
-              {priceWithComma(monthlyLimit?.[0]?.limit) | "0"} Rs{" "}
+              {priceWithComma(monthlyLimit?.[0]?.limit) || "0"} Rs{" "}
             </strong>
           </button>
         </div>
