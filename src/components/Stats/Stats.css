@@ -1,6 +1,25 @@
 .main{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+.graph{
+  margin-left: 20px;
+}
+.head1{
+  margin-left: 20px;
+}
+
+@media screen and (max-device-width: 640px) {
+  .main{
+    flex-direction: column;
+  }
+  .graph{
+    margin-left: 0px;
+  }
+  .head1{
+    margin-left: 0px;
+  }
 }
 .head{
   display: flex;

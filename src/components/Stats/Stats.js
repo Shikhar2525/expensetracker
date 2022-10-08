@@ -1,9 +1,10 @@
 import React from "react";
-import { circleColor, categories } from "../../constants.ts";
+import { circleColor, categories, categoryColors } from "../../constants.ts";
 import { useEffect, useState } from "react";
 import "../Stats/Stats.css";
 import ExpenseService from "../../services/expense.service";
 import { useAuth0 } from "@auth0/auth0-react";
+import ReactApexChart from "react-apexcharts";
 
 function Stats() {
   const [expenses, setExpenses] = useState([]);
@@ -54,8 +55,49 @@ function Stats() {
     return (value * 100) / total;
   };
 
+  const getChartData = () => {
+    let labels = [];
+    let series = [];
+    let colors = [];
+
+    categoryExpense().forEach((pair, index) => {
+      if (pair.value !== 0) {
+        labels.push(pair.name);
+        series.push(pair.value);
+        colors.push(categoryColors[pair.name]);
+      }
+    });
+    return { label: labels, series: series, colors: colors };
+  };
+
+  const chartData = {
+    series: getChartData().series,
+    options: {
+      chart: {
+        width: 380,
+        type: "pie",
+      },
+      colors: getChartData().colors,
+      labels: getChartData().label,
+      responsive: [
+        {
+          breakpoint: 640,
+          options: {
+            chart: {
+              width: 400,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  };
+
   useEffect(() => {
     fetchDataAPI();
+    getChartData();
   }, []);
 
   return (
@@ -94,7 +136,25 @@ function Stats() {
           );
         })}
       </div>
-      <div className="right  col-6"></div>
+      <div className="right mb-5 col-6">
+        <div className="head1">
+          <h2>Grpahical Representation</h2>
+          {spinner ? (
+            <div class="spinner-border mt-1" role="status">
+              <span class="sr-only"></span>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <ReactApexChart
+          options={chartData.options}
+          series={chartData.series}
+          type="pie"
+          width={600}
+          className="mt-3 graph"
+        />
+      </div>
     </div>
   );
 }

@@ -109,7 +109,7 @@ input[type="submit"] {
   background-color: orange;
 }
 .black {
-  background-color: black;
+  background-color: #808000;
 }
 .lime {
   background-color: lime;
@@ -149,7 +149,7 @@ input[type="submit"] {
   color: orange;
 }
 .blackColor {
-  color: black;
+  color: #808000;
 }
 .limeColor {
   color: lime;
