@@ -136,8 +136,8 @@ input[type="submit"] {
   background-color: red;
 }
 .yellow {
-  background-color: yellow;
-  color: black;
+  background-color: #008B8B;
+  
 }
 .purpule {
   background-color: purple;
@@ -177,7 +177,7 @@ input[type="submit"] {
   color: red;
 }
 .yellowColor {
-  color: yellow;
+  color: #008B8B;
 }
 .purpuleColor {
   color: purple;

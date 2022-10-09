@@ -60,7 +60,7 @@ export const iconColors = {
 
 export const categoryColors = {
   Rent: "#FF0000",
-  Transportation: "#FFFF00",
+  Transportation: "#008B8B",
   Groceries: "#800080",
   "Home and utilities": "#008000",
   Insurance: "#EE82EE",
