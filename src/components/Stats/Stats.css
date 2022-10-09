@@ -1,98 +1,98 @@
-.main{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.graph{
+.graph {
   margin-left: 20px;
 }
-.head1{
+.head1 {
   display: flex;
 }
-.leftSideButtons{
+.leftSideButtons {
   display: flex;
 }
 
 @media screen and (max-device-width: 640px) {
-  .main{
+  .main {
     flex-direction: column;
   }
-  .graph{
+  .graph {
     margin-left: -50px;
   }
-  .head1{
+  .head1 {
     flex-direction: column;
     margin-left: 0px;
   }
-  .filterButtons{
+  .filterButtons {
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
   }
-  .quick{
+  .quick {
     margin-left: 10px;
   }
-  .leftSideButtons{
+  .leftSideButtons {
     flex-direction: column;
   }
-  .vr{
+  .vr {
     display: none;
   }
 }
 @media screen and (max-device-width: 1410px) {
-  .main{
+  .main {
     flex-direction: column;
   }
 }
-.head{
+.head {
   display: flex;
 }
 .red {
-    background-color: red;
-  }
-  .yellow {
-    background-color: #008B8B;
-  }
-  .purpule {
-    background-color: purple;
-  }
-  .green {
-    background-color: green;
-  }
-  .violet {
-    background-color: violet;
-  }
-  .orange {
-    background-color: orange;
-  }
-  .black{
-      background-color: #808000;
-  }
-  .lime{
-      background-color: lime;
-  }
-  .naviblue{
-      background-color: navy;
-  }
-  .grey{
-      background-color: grey;
-  }
-  .brown{
-      background-color: #873600;
-  }
-  .indian{
-      background-color: #F50AA7;
-  }
+  background-color: red;
+}
+.yellow {
+  background-color: #008b8b;
+}
+.purpule {
+  background-color: purple;
+}
+.green {
+  background-color: green;
+}
+.violet {
+  background-color: violet;
+}
+.orange {
+  background-color: orange;
+}
+.black {
+  background-color: #808000;
+}
+.lime {
+  background-color: lime;
+}
+.naviblue {
+  background-color: navy;
+}
+.grey {
+  background-color: grey;
+}
+.brown {
+  background-color: #873600;
+}
+.indian {
+  background-color: #f50aa7;
+}
 
-  .filterButtons{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .filterButton{
-    margin-left:10px
-  }
-  .vr{
-    margin-left: 10px;
-  }
+.filterButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filterButton {
+  margin-left: 10px;
+}
+.vr {
+  margin-left: 10px;
+}

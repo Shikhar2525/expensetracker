@@ -24,7 +24,6 @@ function Card(props) {
                       <span class="badge bg-danger new mt-1">New</span>
                     </h6>
                   )}
-                 
                 </div>
                 <span class="badge bg-secondary">{props.expense.category}</span>
                 <span class="badge bg-success">{props.expense.dateString}</span>

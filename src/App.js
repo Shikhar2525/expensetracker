@@ -12,16 +12,15 @@ import { useState, useEffect } from "react";
 import ManageExpense from "./components/ManageExpense/ManageExpense";
 
 function App() {
-  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
-    useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if(isLoading){
-      setProgress(100)
+    if (isLoading) {
+      setProgress(100);
     }
-  },[isLoading])
-  
+  }, [isLoading]);
+
   return (
     <BrowserRouter>
       <LoadingBar
@@ -30,7 +29,7 @@ function App() {
         loaderSpeed={1700}
         onLoaderFinished={() => setProgress(0)}
       />
-      
+
       <NavBar />
       <ScrollToTop />
       <Routes>

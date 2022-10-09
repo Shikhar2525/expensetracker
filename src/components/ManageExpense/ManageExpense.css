@@ -52,7 +52,7 @@ input[type="submit"] {
     box-shadow: 0 0 20px rgb(223, 50, 50);
   }
   100% {
-    background-color:red;
+    background-color: red;
     box-shadow: 0 0 5px rgb(216, 60, 60);
   }
 }
@@ -60,13 +60,13 @@ input[type="submit"] {
   animation: glowing 1300ms infinite;
 }
 
-.categoryExpense{
+.categoryExpense {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 @media screen and (max-device-width: 640px) {
-  .categoryExpense{
+  .categoryExpense {
     flex-direction: column;
   }
   .main {
@@ -85,14 +85,13 @@ input[type="submit"] {
   .vr {
     display: none;
   }
-  .headers1{
+  .headers1 {
     flex-direction: column;
     align-items: center;
   }
   .details {
   }
 }
-
 
 .badge {
   margin-left: 5px;
@@ -146,8 +145,7 @@ input[type="submit"] {
   background-color: red;
 }
 .yellow {
-  background-color: #008B8B;
-  
+  background-color: #008b8b;
 }
 .purpule {
   background-color: purple;
@@ -187,7 +185,7 @@ input[type="submit"] {
   color: red;
 }
 .yellowColor {
-  color: #008B8B;
+  color: #008b8b;
 }
 .purpuleColor {
   color: purple;

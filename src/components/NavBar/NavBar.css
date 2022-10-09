@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-device-width: 640px) {
-  .navBar{
+  .navBar {
     align-items: center;
     justify-content: center;
   }
@@ -31,11 +31,11 @@
   margin-left: 10px;
 }
 
-.profile{
+.profile {
   border-radius: 50%;
   margin-right: 10px;
 }
-.userDetails{
+.userDetails {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +47,6 @@
   font-family: "Times New Roman", Times, serif;
   font-weight: 600;
   margin-right: 43px;
- 
 }
 
 .search {

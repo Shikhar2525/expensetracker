@@ -49,12 +49,9 @@ class ExpenseService {
     return deleteDoc(expense);
   };
 
-  getMonthlyLimit = async (user,id) => {
+  getMonthlyLimit = async (user, id) => {
     const email = where("user", "==", user.email);
-    let monthLimitRef = query(
-      monthlyLimitRef,
-      email
-    );
+    let monthLimitRef = query(monthlyLimitRef, email);
     return getDocs(monthLimitRef);
   };
 
@@ -63,7 +60,6 @@ class ExpenseService {
     return updateDoc(m, newLimitObject);
   };
 
-  
   addMonthlyLimit = (newObject) => {
     return addDoc(monthlyLimitRef, newObject);
   };

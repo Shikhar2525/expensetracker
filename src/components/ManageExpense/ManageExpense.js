@@ -2,12 +2,7 @@ import React from "react";
 import "./ManageExpense.css";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
-import {
-  categories,
-  circleColor,
-  categoriesIcon,
-  iconColors,
-} from "../../constants.ts";
+import { categories } from "../../constants.ts";
 import Modal from "../Modal/Modal";
 import ExpenseService from "../../services/expense.service";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -37,27 +32,7 @@ function ManageExpense() {
   const [monthlyLimit, setMonthlyLimit] = useState();
   const [copyMonthData, setCopyMonthData] = useState([]);
 
-  const { isAuthenticated, user, isLoading } = useAuth0();
-
-  const getCategoryTotal = (category) => {
-    let total = 0;
-    expenses.forEach((expense) => {
-      if (expense.category === category) {
-        total = total + parseInt(expense.price);
-      }
-    });
-    return total;
-  };
-
-  const categoryExpense = () => {
-    let allCategoryTotal = {};
-    categories.forEach((category) => {
-      allCategoryTotal[category] = getCategoryTotal(category)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    });
-    return allCategoryTotal;
-  };
+  const { user } = useAuth0();
 
   const fetchDataAPI = async (mode) => {
     setSpinner2(true);
@@ -90,7 +65,7 @@ function ManageExpense() {
 
   const addExpenseAPI = async (expense) => {
     setSpinner(true);
-    const data = await ExpenseService.addExpense(expense);
+    await ExpenseService.addExpense(expense);
     setSpinner(false);
     SetCreateResponse(true);
     setFilterValues(null);
@@ -105,7 +80,7 @@ function ManageExpense() {
     copyOfAllData.forEach((x) => {
       if (
         arr2.some((val) => {
-          return val[key] == x[key];
+          return val[key] === x[key];
         })
       ) {
         arr2.forEach((k) => {
@@ -176,7 +151,7 @@ function ManageExpense() {
   };
 
   function reverseArr(input) {
-    var ret = new Array();
+    var ret = [];
     for (var i = input.length - 1; i >= 0; i--) {
       ret.push(input[i]);
     }
@@ -344,7 +319,6 @@ function ManageExpense() {
             )}
           </div>
         </form>
-       
       </div>
       <div className="details col-12 col-xl-6 mt-5">
         <div className="headers col-10">
@@ -368,7 +342,7 @@ function ManageExpense() {
           >
             Set Monthly Limit
           </button>
-          {monthlyLimit?.[0]?.limit != 0 && (
+          {monthlyLimit?.[0]?.limit !== 0 && (
             <button
               type=""
               class={`btn  ${

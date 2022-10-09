@@ -59,7 +59,7 @@
 .cardName {
   display: flex;
 }
-.buttons{
-    display: flex;
-    justify-content: space-around;
+.buttons {
+  display: flex;
+  justify-content: space-around;
 }
