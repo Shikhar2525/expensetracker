@@ -154,6 +154,7 @@ function Stats() {
               </li>
             </ul>
           </div>
+          <div class="vr"></div>
           <button
             type="button"
             class="btn btn-primary filterButton "
@@ -162,6 +163,7 @@ function Stats() {
           >
             <i class="bi bi-funnel"></i> Filter
           </button>
+          <div class="vr"></div>
           <button
             type="button"
             class="btn btn-danger menuButtons filterButton"

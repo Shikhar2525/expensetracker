@@ -36,6 +36,9 @@
   .leftSideButtons{
     flex-direction: column;
   }
+  .vr{
+    display: none;
+  }
 }
 @media screen and (max-device-width: 1410px) {
   .main{
@@ -89,4 +92,7 @@
   }
   .filterButton{
     margin-left:10px
+  }
+  .vr{
+    margin-left: 10px;
   }
