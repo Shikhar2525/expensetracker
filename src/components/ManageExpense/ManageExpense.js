@@ -13,9 +13,18 @@ import ExpenseService from "../../services/expense.service";
 import { useAuth0 } from "@auth0/auth0-react";
 import Card from "../Card/Card";
 import ExportCSV from "../ExportCSV/ExportCSV";
-import ReactApexChart from "react-apexcharts";
-import { async } from "@firebase/util";
 
+export const priceWithComma = (price) => {
+  return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export const totalExpense = (expenses) => {
+  let total = 0;
+  expenses.forEach((e) => {
+    total = total + parseInt(e.price);
+  });
+  return total;
+};
 function ManageExpense() {
   const [createResponse, SetCreateResponse] = useState(false);
   const [expenses, setExpenses] = useState([]);
@@ -143,18 +152,6 @@ function ManageExpense() {
     document.getElementById("category").value = "";
     document.getElementById("date").value = "";
     document.getElementById("checkbox").checked = false;
-  };
-
-  const priceWithComma = (price) => {
-    return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
-
-  const totalExpense = (expenses) => {
-    let total = 0;
-    expenses.forEach((e) => {
-      total = total + parseInt(e.price);
-    });
-    return total;
   };
 
   function formatDate(date) {
