@@ -14,6 +14,7 @@ function Modal(props) {
   const [newName, setNewName] = useState(props.expense?.name);
   const [newPrice, setNewPrice] = useState(props.expense?.price);
   const [newCategory, setNewCategory] = useState(props.expense?.category);
+  const [newDesc, setNewDesc] = useState(props.expense?.desc);
 
   const removeBackDropModal = () => {
     let elements = document.getElementsByClassName("modal-backdrop");
@@ -32,6 +33,7 @@ function Modal(props) {
   };
 
   const handleEditExpense = async (idToEdit) => {
+    console.log(newDesc)
     setSpinner2(true);
     let newExpense = {
       name: newName,
@@ -39,6 +41,7 @@ function Modal(props) {
       category: newCategory,
       isEdited: true,
       editDate: new Date(),
+      desc: newDesc,
     };
     await ExpenseService.updateExpense(idToEdit, newExpense);
     setSpinner2(false);
@@ -206,8 +209,19 @@ function Modal(props) {
                       })}
                     </select>
                   </div>
-
-                  <div class="form-group mt-1"></div>
+                  <div class="form-group mt-3">
+                    <label for="exampleFormControlTextarea1">Description</label>
+                    <textarea
+                      class="form-control"
+                      id="desc1"
+                      rows="2"
+                      maxLength={50}
+                      defaultValue={newDesc}
+                      onBlur={() => {
+                        setNewDesc(document.getElementById("desc1").value)
+                      }}
+                    ></textarea>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button
