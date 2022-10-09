@@ -16,15 +16,16 @@ function Card(props) {
               ></span>
             </div>
             <div class="row flex-fill">
-              <div class="col-sm-5">
+              <div class="col-sm-5 ">
                 <div className="cardName">
-                  <h4 class="h5">{props.expense.name}</h4>
+                  <h4 class="h5 col-8">{props.expense.name}</h4>
                   {props.index === 0 && (
                     <h6>
                       <span class="badge bg-danger new mt-1">New</span>
                     </h6>
                   )}
                 </div>
+                {props.desc!=='' ? <div className="desc col-12">{props.expense.desc}</div> :''}
                 <span class="badge bg-secondary">{props.expense.category}</span>
                 <span class="badge bg-success">{props.expense.dateString}</span>
                 {props.expense.isEdited && (

@@ -93,6 +93,9 @@ input[type="submit"] {
   }
 }
 
+.searchE{
+  border: 2px solid grey;
+}
 .badge {
   margin-left: 5px;
 }

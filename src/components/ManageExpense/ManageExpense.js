@@ -31,7 +31,7 @@ function ManageExpense() {
   const [copyOfAllData, setCopyOfAllData] = useState([]);
   const [monthlyLimit, setMonthlyLimit] = useState();
   const [copyMonthData, setCopyMonthData] = useState([]);
-
+  const [searchString, setSearchString] = useState("");
   const { user } = useAuth0();
 
   const fetchDataAPI = async (mode) => {
@@ -107,6 +107,7 @@ function ManageExpense() {
     const price = document.getElementById("Price").value;
     const category = document.getElementById("category").value;
     const date = document.getElementById("date").value;
+    const desc = document.getElementById('desc').value;
     let newDate = new Date(date);
     let today = new Date();
     let newExpense = {
@@ -120,6 +121,7 @@ function ManageExpense() {
       createdDate: today,
       month: newDate.getMonth(),
       year: newDate.getFullYear(),
+      desc
     };
     addExpenseAPI(newExpense);
     document.getElementById("ExpenseName").value = "";
@@ -127,6 +129,7 @@ function ManageExpense() {
     document.getElementById("category").value = "";
     document.getElementById("date").value = "";
     document.getElementById("checkbox").checked = false;
+    document.getElementById('desc').value='';
   };
 
   function formatDate(date) {
@@ -207,6 +210,16 @@ function ManageExpense() {
     setCopyMonthData(json);
   };
 
+  const getSearchData = () => {
+    return reverseArr(expenses).filter((val) => {
+      if (searchString === "") {
+        return val;
+      } else if (val.name.toLowerCase().includes(searchString.toLowerCase())) {
+        return val;
+      }
+    });
+  };
+
   useEffect(() => {
     fetchDataAPI("ADD");
     fetchMonthlyLimit();
@@ -256,6 +269,7 @@ function ManageExpense() {
               id="ExpenseName"
               aria-describedby="ExpenseName"
               placeholder="Expense Name"
+              maxLength={20}
               required
             />
           </div>
@@ -287,6 +301,15 @@ function ManageExpense() {
                 return <option value={category}>{category}</option>;
               })}
             </select>
+          </div>
+          <div class="form-group mt-3">
+            <label for="exampleFormControlTextarea1">Description (Optional)</label>
+            <textarea
+              class="form-control"
+              id="desc"
+              rows="2"
+              maxLength={50}
+            ></textarea>
           </div>
           <div class="form-group mt-3">
             <label>
@@ -492,21 +515,51 @@ function ManageExpense() {
           )}
         </div>
         {filterValues && <hr className="container-fluid col-10 mt-1" />}
+        <div className="headers col-10 ">
+          <input
+            type="text"
+            className="form-control searchE "
+            placeholder="Search expense"
+            onChange={(event) => {
+              setSearchString(event.target.value);
+            }}
+          />
+        </div>
         <span id="focusElement"></span>
         {spinner2 ? (
-          <div class="spinner-border" role="status">
+          <div class="spinner-border mt-3" role="status">
             <span class="sr-only"></span>
           </div>
         ) : expenses.length > 0 ? (
-          reverseArr(expenses).map((expense, index) => {
-            return (
-              <Card
-                expense={expense}
-                setRefreshList={(value) => setRefreshList(value)}
-                index={index}
-              />
-            );
-          })
+          getSearchData()?.length > 0 ? (
+            getSearchData()
+              .filter((val) => {
+                if (searchString === "") {
+                  return val;
+                } else if (
+                  val.name.toLowerCase().includes(searchString.toLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((expense, index) => {
+                return (
+                  <Card
+                    expense={expense}
+                    setRefreshList={(value) => setRefreshList(value)}
+                    index={index}
+                  />
+                );
+              })
+          ) : (
+            <>
+              <hr className="container-fluid col-10" />
+              <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-exclamation-octagon-fill"></i>
+                <strong class="mx-2">No Search Results Found</strong>
+              </div>
+            </>
+          )
         ) : (
           <div class="alert alert-danger col-10 mt-3" role="alert">
             No Data Available.{" "}
