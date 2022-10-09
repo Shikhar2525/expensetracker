@@ -344,30 +344,7 @@ function ManageExpense() {
             )}
           </div>
         </form>
-        <div className="categoryExpense">
-          <h5 className="mt-5">Category wise money spent</h5>
-          <ul class="list-group">
-            {Object.entries(categoryExpense()).map(([key, value], index) => {
-              return (
-                <>
-                  <li
-                    class={`list-group-item ${
-                      Object.entries(categoryExpense()).length - 1 === index
-                        ? "mb-4"
-                        : ""
-                    }`}
-                  >
-                    <span
-                      class={`${categoriesIcon[key]} ${iconColors[key]} icon`}
-                    ></span>
-                    <span>{key}</span>
-                    <span class={`badge bg-dark rounded-pill`}>{value} Rs</span>
-                  </li>
-                </>
-              );
-            })}
-          </ul>
-        </div>
+       
       </div>
       <div className="details col-12 col-xl-6 mt-5">
         <div className="headers col-10">

@@ -7,6 +7,7 @@ input[type="submit"] {
 }
 .formContainer {
 }
+
 .main {
   display: flex;
   justify-content: space-between;
@@ -59,7 +60,15 @@ input[type="submit"] {
   animation: glowing 1300ms infinite;
 }
 
+.categoryExpense{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 @media screen and (max-device-width: 640px) {
+  .categoryExpense{
+    flex-direction: column;
+  }
   .main {
     flex-direction: column;
     align-items: center;
@@ -83,6 +92,7 @@ input[type="submit"] {
   .details {
   }
 }
+
 
 .badge {
   margin-left: 5px;

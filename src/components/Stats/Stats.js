@@ -44,7 +44,7 @@ function Stats() {
   const categoryExpense = () => {
     let allCategoryTotal = [];
     categories.forEach((category) => {
-      if (getCategoryTotal(category) != 0) {
+      if (getCategoryTotal(category) !== 0) {
         let temp = {
           name: category,
           value: getCategoryTotal(category),
@@ -261,7 +261,9 @@ function Stats() {
                         className={`progress-bar ${circleColor[expense.name]}`}
                         role="progressbar"
                         style={{ width: `${calcPercent(expense.value) | ""}%` }}
-                      ></div>
+                      >
+                        {priceWithComma(expense.value)} Rs
+                      </div>
                     </div>
                     <label
                       className={`${

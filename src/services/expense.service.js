@@ -1,7 +1,6 @@
 import { db } from "../firebase";
 import {
   collection,
-  getDoc,
   getDocs,
   addDoc,
   updateDoc,
@@ -9,9 +8,7 @@ import {
   doc,
   where,
   query,
-  Query,
 } from "firebase/firestore";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const expenseRef = collection(db, "allexpenses");
 const monthlyLimitRef = collection(db, "monthlyLimit");
