@@ -146,7 +146,7 @@ function ManageExpense() {
   }
 
   const handleCheckChange = () => {
-    var checkBox = document.getElementById("checkbox");
+    var checkBox = document.getElementById("checkboxdate");
     if (checkBox?.checked === true) {
       document.getElementById("date").value = formatDate(new Date());
     } else {
@@ -319,12 +319,20 @@ function ManageExpense() {
               <label>
                 Date <span className="redStar">*</span>
               </label>
-              <input type="date" id="date" className="form-control" required />
+              <input
+                type="date"
+                id="date"
+                className="form-control"
+                onChange={() =>
+                  (document.getElementById("checkboxdate").checked = false)
+                }
+                required
+              />
             </div>
             <div class="form-group mt-3">
               <div class="form-check">
                 <input
-                  id="checkbox"
+                  id="checkboxdate"
                   class="form-check-input"
                   type="checkbox"
                   value=""
