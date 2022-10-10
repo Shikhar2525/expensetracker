@@ -23,6 +23,7 @@ function Modal(props) {
       value.remove();
     });
   };
+
   const deleteExpense = async (idToDelete) => {
     setSpinner(true);
     await ExpenseService.deleteExpense(idToDelete);
@@ -33,7 +34,6 @@ function Modal(props) {
   };
 
   const handleEditExpense = async (idToEdit) => {
-    console.log(newDesc)
     setSpinner2(true);
     let newExpense = {
       name: newName,
@@ -58,6 +58,7 @@ function Modal(props) {
   const handleChangeDropdown = (e) => {
     setCategory(e.target.value);
   };
+  
   return (
     <>
       {props.type === "Delete" ? (
@@ -166,9 +167,9 @@ function Modal(props) {
                       aria-describedby="ExpenseName"
                       placeholder="Expense Name"
                       defaultValue={newName}
-                      onBlur={() => {
+                      onBlur={(event) => {
                         setNewName(
-                          document.getElementById("ExpenseName1").value
+                         event.target.value
                         );
                       }}
                       required
@@ -183,8 +184,8 @@ function Modal(props) {
                       aria-describedby="Price"
                       placeholder="Amount in rupee"
                       defaultValue={newPrice}
-                      onBlur={() => {
-                        setNewPrice(document.getElementById("Price1").value);
+                      onBlur={(event) => {
+                        setNewPrice(event.target.value);
                       }}
                       required
                     />
@@ -196,9 +197,9 @@ function Modal(props) {
                       aria-label="Default select example"
                       id="category1"
                       defaultValue={newCategory}
-                      onBlur={() => {
+                      onBlur={(event) => {
                         setNewCategory(
-                          document.getElementById("category1").value
+                          event.target.value
                         );
                       }}
                       required
@@ -217,8 +218,8 @@ function Modal(props) {
                       rows="2"
                       maxLength={50}
                       defaultValue={newDesc}
-                      onBlur={() => {
-                        setNewDesc(document.getElementById("desc1").value)
+                      onBlur={(event) => {
+                        setNewDesc(event.target.value)
                       }}
                     ></textarea>
                   </div>
