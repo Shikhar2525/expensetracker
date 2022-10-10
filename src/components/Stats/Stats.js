@@ -207,8 +207,8 @@ function Stats() {
           <hr className="container" />
         </>
       )}
-      <div className="container main">
-        <div className="left mb-5 col-6">
+      <div className="container main3">
+        <div className="left mb-5 col-7">
           <div className="head1 ">
             <h2>Grpahical Representation</h2>
             {spinner ? (
@@ -233,7 +233,7 @@ function Stats() {
             </div>
           )}
         </div>
-        <div className="right mb-5 col-6">
+        <div className="right mb-5 col-5">
           <div className="head">
             <h2>Statistics</h2>
             {spinner ? (

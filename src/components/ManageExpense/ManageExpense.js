@@ -107,7 +107,7 @@ function ManageExpense() {
     const price = document.getElementById("Price").value;
     const category = document.getElementById("category").value;
     const date = document.getElementById("date").value;
-    const desc = document.getElementById('desc').value;
+    const desc = document.getElementById("desc").value;
     let newDate = new Date(date);
     let today = new Date();
     let newExpense = {
@@ -121,7 +121,7 @@ function ManageExpense() {
       createdDate: today,
       month: newDate.getMonth(),
       year: newDate.getFullYear(),
-      desc
+      desc,
     };
     addExpenseAPI(newExpense);
     document.getElementById("ExpenseName").value = "";
@@ -129,7 +129,7 @@ function ManageExpense() {
     document.getElementById("category").value = "";
     document.getElementById("date").value = "";
     document.getElementById("checkbox").checked = false;
-    document.getElementById('desc').value='';
+    document.getElementById("desc").value = "";
   };
 
   function formatDate(date) {
@@ -245,334 +245,341 @@ function ManageExpense() {
   }, [createResponse]);
 
   return (
-    <div className="main container">
-      <div className="formContainer col-6">
-        {createResponse ? (
-          <div
-            class="alert alert-success alert-dismissible show"
-            role="alert"
-            id="successAlert"
-          >
-            <strong>New Expense Added</strong>
-          </div>
-        ) : (
-          ""
-        )}
-        <form className="mt-4" onSubmit={handleSubmit} method="POST">
-          <div className="form-group">
-            <label for="Price">
-              Expense Name <span className="redStar">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="ExpenseName"
-              aria-describedby="ExpenseName"
-              placeholder="Expense Name"
-              maxLength={20}
-              required
-            />
-          </div>
-          <div class="form-group mt-3">
-            <label for="Price">
-              Price (Rs)<span className="redStar">*</span>
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              id="Price"
-              aria-describedby="Price"
-              placeholder="Amount in rupee"
-              required
-            />
-          </div>
-          <div class="form-group mt-3">
-            <label>
-              Category <span className="redStar">*</span>
-            </label>
-            <select
-              className="form-select"
-              aria-label="Default select example"
-              id="category"
-              required
+    <>
+      <div className="main1 container">
+        <div className="formContainer col-6">
+          {createResponse ? (
+            <div
+              class="alert alert-success alert-dismissible show"
+              role="alert"
+              id="successAlert"
             >
-              <option value="">Select Category </option>
-              {categories.map((category) => {
-                return <option value={category}>{category}</option>;
-              })}
-            </select>
-          </div>
-          <div class="form-group mt-3">
-            <label for="exampleFormControlTextarea1">Description (Optional)</label>
-            <textarea
-              class="form-control"
-              id="desc"
-              rows="2"
-              maxLength={50}
-            ></textarea>
-          </div>
-          <div class="form-group mt-3">
-            <label>
-              Date <span className="redStar">*</span>
-            </label>
-            <input type="date" id="date" className="form-control" required />
-          </div>
-          <div class="form-group mt-3">
-            <div class="form-check">
-              <input
-                id="checkbox"
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                onClick={() => handleCheckChange()}
-              />
-              <label class="form-check-label" for="flexCheckChecked">
-                Today's Date
-              </label>
+              <strong>New Expense Added</strong>
             </div>
-          </div>
-          <div class="form-group mt-3  d-flex align-items-center">
-            <input type="submit" className="btn btn-dark " value="Add" />
-            {spinner ? (
-              <div class="spinner-border" role="status">
-                <span class="sr-only"></span>
+          ) : (
+            ""
+          )}
+          <form className="mt-4" onSubmit={handleSubmit} method="POST">
+            <div className="form-group">
+              <label for="Price">
+                Expense Name <span className="redStar">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="ExpenseName"
+                aria-describedby="ExpenseName"
+                placeholder="Expense Name"
+                maxLength={20}
+                required
+              />
+            </div>
+            <div class="form-group mt-3">
+              <label for="Price">
+                Price (Rs)<span className="redStar">*</span>
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="Price"
+                aria-describedby="Price"
+                placeholder="Amount in rupee"
+                required
+              />
+            </div>
+            <div class="form-group mt-3">
+              <label>
+                Category <span className="redStar">*</span>
+              </label>
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                id="category"
+                required
+              >
+                <option value="">Select Category </option>
+                {categories.map((category) => {
+                  return <option value={category}>{category}</option>;
+                })}
+              </select>
+            </div>
+            <div class="form-group mt-3">
+              <label for="exampleFormControlTextarea1">
+                Description (Optional)
+              </label>
+              <textarea
+                class="form-control"
+                id="desc"
+                rows="2"
+                maxLength={50}
+              ></textarea>
+            </div>
+            <div class="form-group mt-3">
+              <label>
+                Date <span className="redStar">*</span>
+              </label>
+              <input type="date" id="date" className="form-control" required />
+            </div>
+            <div class="form-group mt-3">
+              <div class="form-check">
+                <input
+                  id="checkbox"
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  onClick={() => handleCheckChange()}
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  Today's Date
+                </label>
               </div>
-            ) : (
-              ""
+            </div>
+            <div class="form-group mt-3  d-flex align-items-center">
+              <input type="submit" className="btn btn-dark " value="Add" />
+              {spinner ? (
+                <div class="spinner-border" role="status">
+                  <span class="sr-only"></span>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          </form>
+        </div>
+        <div className="details col-12 col-xl-6 mt-5">
+          <div className="headers col-10">
+            <button type="button" class="btn  btn-dark  total">
+              Total
+              <span class="badge bg-secondary ">
+                {priceWithComma(totalExpense(expenses))} Rs
+              </span>
+            </button>
+          </div>
+
+          <hr className="container-fluid col-10" />
+          <div className="headers1 col-10 ">
+            <button
+              class="btn btn-danger"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseExample"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Set Monthly Limit
+            </button>
+            {monthlyLimit?.[0]?.limit !== 0 && (
+              <button
+                type=""
+                class={`btn  ${
+                  isLimitReached() ? "limitbutton btn-danger" : "bg-success"
+                }`}
+              >
+                Current Monthly Limit : {"  "}
+                <strong className="">
+                  {priceWithComma(monthlyLimit?.[0]?.limit) || "0"} Rs{" "}
+                </strong>
+              </button>
             )}
           </div>
-        </form>
-      </div>
-      <div className="details col-12 col-xl-6 mt-5">
-        <div className="headers col-10">
-          <button type="button" class="btn  btn-dark  total">
-            Total
-            <span class="badge bg-secondary ">
-              {priceWithComma(totalExpense(expenses))} Rs
-            </span>
-          </button>
-        </div>
-
-        <hr className="container-fluid col-10" />
-        <div className="headers1 col-10 ">
-          <button
-            class="btn btn-danger"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample"
-            aria-expanded="false"
-            aria-controls="collapseExample"
-          >
-            Set Monthly Limit
-          </button>
-          {monthlyLimit?.[0]?.limit !== 0 && (
-            <button
-              type=""
-              class={`btn  ${
-                isLimitReached() ? "limitbutton btn-danger" : "bg-success"
-              }`}
-            >
-              Current Monthly Limit : {"  "}
-              <strong className="">
-                {priceWithComma(monthlyLimit?.[0]?.limit) || "0"} Rs{" "}
-              </strong>
-            </button>
-          )}
-        </div>
-        <div className="headers1 col-10 ">
-          <div class="collapse mt-3" id="collapseExample">
-            <div class="card card-body">
-              <form onSubmit={createMonthlyLimit} method="POST">
-                <div className="form-group">
-                  <label for="Price">
-                    Set Limit (Rs)<span className="redStar">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control mt-2"
-                    id="limit"
-                    aria-describedby="limit"
-                    placeholder="Enter monthly limit"
-                    defaultValue={monthlyLimit?.[0]?.limit}
-                    required
-                  />
-                </div>
-                <div className="limitButtons">
-                  <input
-                    type="submit"
-                    className="btn btn-dark mt-3 "
-                    value="Add"
-                  />
-                  {spinner3 ? (
-                    <div class="spinner-border mt-3" role="status">
-                      <span class="sr-only"></span>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        {isLimitReached() && (
-          <div class="alert alert-danger col-10 mt-3" role="alert">
-            You have reached monthly limit
-          </div>
-        )}
-
-        <hr className="container-fluid col-10" />
-        <div className="headers col-10 ">
-          <div class="dropdown">
-            <button
-              class="btn btn-warning dropdown-toggle menuButtons"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Quick Filters{" "}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li
-                onClick={() =>
-                  setFilterValues({ date: new Date(), category: null })
-                }
-              >
-                <p class="dropdown-item">This Month</p>
-              </li>
-              <li
-                onClick={() =>
-                  setFilterValues({
-                    date: null,
-                    category: null,
-                    thisYear: true,
-                  })
-                }
-              >
-                <p class="dropdown-item">This Year</p>
-              </li>
-              {categoryFreq("category")
-                .slice(0, 3)
-                .map((value) => {
-                  return (
-                    <li
-                      onClick={() =>
-                        setFilterValues({
-                          date: null,
-                          category: value.category,
-                        })
-                      }
-                    >
-                      <p class="dropdown-item">
-                        Category : {value.category} ({value.occurrence})
-                      </p>
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
-          <div class="vr"></div>
-          <button
-            type="button"
-            class="btn btn-primary menuButtons "
-            data-bs-toggle="modal"
-            data-bs-target={`#filterModal`}
-          >
-            <i class="bi bi-funnel"></i> Filter
-          </button>
-          <div class="vr"></div>
-          <button
-            type="button"
-            class="btn btn-danger menuButtons "
-            onClick={() => {
-              setFilterValues(null);
-            }}
-            disabled={!filterValues}
-          >
-            Remove Filters
-          </button>
-          <div class="vr"></div>
-          <ExportCSV data={expenses} canDisable={!(expenses.length > 0)} />
-        </div>
-        <hr className="container-fluid col-10" />
-        <div className="headers col-10">
-          {filterValues && (
-            <div class="alert alert-primary col-12  filterApplied" role="alert">
-              Filter applied on{" "}
-              <u>
-                {filterValues?.date?.toString() || filterValues?.thisYear
-                  ? "Date"
-                  : ""}
-                {filterValues?.date?.toString() && filterValues?.category
-                  ? " & "
-                  : ""}
-                {filterValues?.category
-                  ? `Category: ${filterValues?.category}`
-                  : ""}
-              </u>
-            </div>
-          )}
-        </div>
-        {filterValues && <hr className="container-fluid col-10 mt-1" />}
-        <div className="headers col-10 ">
-          <input
-            type="text"
-            className="form-control searchE "
-            placeholder="Search expense"
-            onChange={(event) => {
-              setSearchString(event.target.value);
-            }}
-          />
-        </div>
-        <span id="focusElement"></span>
-        {spinner2 ? (
-          <div class="spinner-border mt-3" role="status">
-            <span class="sr-only"></span>
-          </div>
-        ) : expenses.length > 0 ? (
-          getSearchData()?.length > 0 ? (
-            getSearchData()
-              .filter((val) => {
-                if (searchString === "") {
-                  return val;
-                } else if (
-                  val.name.toLowerCase().includes(searchString.toLowerCase())
-                ) {
-                  return val;
-                }
-              })
-              .map((expense, index) => {
-                return (
-                  <Card
-                    expense={expense}
-                    setRefreshList={(value) => setRefreshList(value)}
-                    index={index}
-                  />
-                );
-              })
-          ) : (
-            <>
-              <hr className="container-fluid col-10" />
-              <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
-                <i class="bi-exclamation-octagon-fill"></i>
-                <strong class="mx-2">No Search Results Found</strong>
+          <div className="headers1 col-10 ">
+            <div class="collapse mt-3" id="collapseExample">
+              <div class="card card-body">
+                <form onSubmit={createMonthlyLimit} method="POST">
+                  <div className="form-group">
+                    <label for="Price">
+                      Set Limit (Rs)<span className="redStar">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control mt-2"
+                      id="limit"
+                      aria-describedby="limit"
+                      placeholder="Enter monthly limit"
+                      defaultValue={monthlyLimit?.[0]?.limit}
+                      required
+                    />
+                  </div>
+                  <div className="limitButtons">
+                    <input
+                      type="submit"
+                      className="btn btn-dark mt-3 "
+                      value="Add"
+                    />
+                    {spinner3 ? (
+                      <div class="spinner-border mt-3" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </form>
               </div>
-            </>
-          )
-        ) : (
-          <div class="alert alert-danger col-10 mt-3" role="alert">
-            No Data Available.{" "}
-            <strong>Try adding data or changing filter</strong>
+            </div>
           </div>
-        )}
+          {isLimitReached() && (
+            <div class="alert alert-danger col-10 mt-3" role="alert">
+              You have reached monthly limit
+            </div>
+          )}
+
+          <hr className="container-fluid col-10" />
+          <div className="headers col-10 ">
+            <div class="dropdown">
+              <button
+                class="btn btn-warning dropdown-toggle menuButtons"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Quick Filters{" "}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li
+                  onClick={() =>
+                    setFilterValues({ date: new Date(), category: null })
+                  }
+                >
+                  <p class="dropdown-item">This Month</p>
+                </li>
+                <li
+                  onClick={() =>
+                    setFilterValues({
+                      date: null,
+                      category: null,
+                      thisYear: true,
+                    })
+                  }
+                >
+                  <p class="dropdown-item">This Year</p>
+                </li>
+                {categoryFreq("category")
+                  .slice(0, 3)
+                  .map((value) => {
+                    return (
+                      <li
+                        onClick={() =>
+                          setFilterValues({
+                            date: null,
+                            category: value.category,
+                          })
+                        }
+                      >
+                        <p class="dropdown-item">
+                          Category : {value.category} ({value.occurrence})
+                        </p>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+            <div class="vr"></div>
+            <button
+              type="button"
+              class="btn btn-primary menuButtons "
+              data-bs-toggle="modal"
+              data-bs-target={`#filterModal`}
+            >
+              <i class="bi bi-funnel"></i> Filter
+            </button>
+            <div class="vr"></div>
+            <button
+              type="button"
+              class="btn btn-danger menuButtons "
+              onClick={() => {
+                setFilterValues(null);
+              }}
+              disabled={!filterValues}
+            >
+              Remove Filters
+            </button>
+            <div class="vr"></div>
+            <ExportCSV data={expenses} canDisable={!(expenses.length > 0)} />
+          </div>
+          <hr className="container-fluid col-10" />
+          <div className="headers col-10">
+            {filterValues && (
+              <div
+                class="alert alert-primary col-12  filterApplied"
+                role="alert"
+              >
+                Filter applied on{" "}
+                <u>
+                  {filterValues?.date?.toString() || filterValues?.thisYear
+                    ? "Date"
+                    : ""}
+                  {filterValues?.date?.toString() && filterValues?.category
+                    ? " & "
+                    : ""}
+                  {filterValues?.category
+                    ? `Category: ${filterValues?.category}`
+                    : ""}
+                </u>
+              </div>
+            )}
+          </div>
+          {filterValues && <hr className="container-fluid col-10 mt-1" />}
+          <div className="headers col-10 ">
+            <input
+              type="text"
+              className="form-control searchE "
+              placeholder="Search expense"
+              onChange={(event) => {
+                setSearchString(event.target.value);
+              }}
+            />
+          </div>
+          <span id="focusElement"></span>
+          {spinner2 ? (
+            <div class="spinner-border mt-3" role="status">
+              <span class="sr-only"></span>
+            </div>
+          ) : expenses.length > 0 ? (
+            getSearchData()?.length > 0 ? (
+              getSearchData()
+                .filter((val) => {
+                  if (searchString === "") {
+                    return val;
+                  } else if (
+                    val.name.toLowerCase().includes(searchString.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((expense, index) => {
+                  return (
+                    <Card
+                      expense={expense}
+                      setRefreshList={(value) => setRefreshList(value)}
+                      index={index}
+                    />
+                  );
+                })
+            ) : (
+              <>
+                <hr className="container-fluid col-10" />
+                <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">No Search Results Found</strong>
+                </div>
+              </>
+            )
+          ) : (
+            <div class="alert alert-danger col-10 mt-3" role="alert">
+              No Data Available.{" "}
+              <strong>Try adding data or changing filter</strong>
+            </div>
+          )}
+        </div>
       </div>
       <Modal
         id="filterModal"
         type="Filter"
         sendFilterValues={(value) => getFilterValues(value)}
       />
-    </div>
+    </>
   );
 }
 

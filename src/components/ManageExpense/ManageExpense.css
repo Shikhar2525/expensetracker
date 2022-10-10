@@ -8,7 +8,7 @@ input[type="submit"] {
 .formContainer {
 }
 
-.main {
+.main1 {
   display: flex;
   justify-content: space-between;
 }
@@ -69,7 +69,7 @@ input[type="submit"] {
   .categoryExpense {
     flex-direction: column;
   }
-  .main {
+  .main1 {
     flex-direction: column;
     align-items: center;
   }

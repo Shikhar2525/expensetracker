@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Welcome() {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   return (
-    <div className="main container">
+    <div className="main2 container">
       <div className="welcomeBody container-fluid col-12">
         <div className="heading">
           <h1>Welcome To Expense Tracker</h1>
