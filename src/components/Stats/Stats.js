@@ -210,7 +210,7 @@ function Stats() {
       <div className="container main3">
         <div className="left mb-5 col-7">
           <div className="head1 ">
-            <h2>Grpahical Representation</h2>
+            <h2>Graphical Representation</h2>
             {spinner ? (
               <div class="spinner-border mt-1" role="status">
                 <span class="sr-only"></span>
