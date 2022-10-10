@@ -32,7 +32,7 @@ function ManageExpense() {
   const [monthlyLimit, setMonthlyLimit] = useState();
   const [copyMonthData, setCopyMonthData] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [disableReport , setDisableReport] = useState(false);
+  const [disableReport, setDisableReport] = useState(false);
   const { user } = useAuth0();
 
   const fetchDataAPI = async (mode) => {
@@ -186,7 +186,7 @@ function ManageExpense() {
         user: user.email,
         limit: limit,
       });
-      setMonthlyLimit(limit);
+      fetchMonthlyLimit();
     } else {
       await ExpenseService.updateLimit(monthlyLimit[0].id, {
         id: monthlyLimit[0].id,
@@ -194,8 +194,8 @@ function ManageExpense() {
         limit: limit,
       });
       fetchMonthlyLimit();
-      setSpinner3(false);
     }
+    setSpinner3(false);
   };
 
   const isLimitReached = () => {
@@ -497,7 +497,10 @@ function ManageExpense() {
               Remove Filters
             </button>
             <div class="vr"></div>
-            <ExportCSV data={expenses} canDisable={!(expenses.length > 0) || disableReport} />
+            <ExportCSV
+              data={expenses}
+              canDisable={!(expenses.length > 0) || disableReport}
+            />
           </div>
           <hr className="container-fluid col-10" />
           <div className="headers col-10">
@@ -529,10 +532,10 @@ function ManageExpense() {
               placeholder="Search expense"
               onChange={(event) => {
                 setSearchString(event.target.value);
-                if(event.target.value!==''){
-                  setDisableReport(true)
-                }else{
-                  setDisableReport(false)
+                if (event.target.value !== "") {
+                  setDisableReport(true);
+                } else {
+                  setDisableReport(false);
                 }
               }}
             />
