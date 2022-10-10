@@ -43,7 +43,7 @@
   }
 }
 
-@media screen and (max-device-width: 990px) {
+@media screen and (max-device-width: 1205px) {
   .main3{
     flex-direction: column;
   }
