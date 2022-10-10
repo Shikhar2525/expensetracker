@@ -166,6 +166,7 @@ function Modal(props) {
                       id="ExpenseName1"
                       aria-describedby="ExpenseName"
                       placeholder="Expense Name"
+                      maxLength={20}
                       defaultValue={newName}
                       onBlur={(event) => {
                         setNewName(
