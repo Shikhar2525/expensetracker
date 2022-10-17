@@ -6,20 +6,19 @@
   font-size: large;
 }
 @media screen and (max-device-width: 640px) {
-  .navLinks{
+  .navLinks {
     flex-direction: column;
   }
-  .toggler{
-    margin-top: 10px;
+  .toggler {
+    margin-top: 5px;
   }
 }
 
-.breadcrumb{
+.breadcrumb {
   margin-top: 10px;
 }
-.toggler{
-  margin-right:10px;
-  margin-top: -6px;
+.toggler {
+  margin-right: 10px;
 }
 li:hover {
   color: grey;
@@ -45,7 +44,6 @@ a:hover {
   border-radius: 50px;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
   position: relative;
   transform: scale(1.5);
 }

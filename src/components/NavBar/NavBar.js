@@ -28,7 +28,7 @@ function NavBar(props) {
         </div>
 
         <div className="loginDetails col-7">
-          <div className="userDetails ">
+          <div className="ml ">
             {isAuthenticated ? (
               <img
                 className="profile"
@@ -40,9 +40,8 @@ function NavBar(props) {
             ) : (
               ""
             )}{" "}
-            {isAuthenticated ? `${user.name || user.email}` : ""}
           </div>
-
+          <div className="ml"> {isAuthenticated ? `${user.name || user.email}` : ""}</div>
           {isAuthenticated ? (
             <button
               className="logoutButton btn btn-danger"
@@ -63,7 +62,7 @@ function NavBar(props) {
 
       {isAuthenticated ? (
         <div className="navLink">
-          <NavLinks toggler={()=> props.toggler()}/>
+          <NavLinks toggler={() => props.toggler()} />
         </div>
       ) : (
         ""

@@ -21,10 +21,17 @@
     margin-top: 10px;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin-left: 35px;
+    height: 150px;
   }
-  .logoutButton {
-    margin-top: 10px;
-  }
+ .ml{
+  margin-left: 16px;
+  margin-top: 10px;
+ }
+ .logoutButton{
+  margin-right: 6px;
+ }
 }
 
 .logoutButton {
@@ -43,10 +50,12 @@
 .loginDetails {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-around;
   font-family: "Times New Roman", Times, serif;
   font-weight: 600;
   margin-right: 43px;
+  width: 25%;
+  
 }
 
 .search {

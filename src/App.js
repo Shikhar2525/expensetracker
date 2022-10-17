@@ -17,7 +17,7 @@ const styleApp = styled.div``;
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
   const [progress, setProgress] = useState(0);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState();
 
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
