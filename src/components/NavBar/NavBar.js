@@ -3,7 +3,7 @@ import "./NavBar.css";
 import NavLinks from "./NavLinks/NavLinks";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function NavBar() {
+function NavBar(props) {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
     useAuth0();
   return (
@@ -26,6 +26,7 @@ function NavBar() {
             ""
           )}
         </div>
+
         <div className="loginDetails col-7">
           <div className="userDetails ">
             {isAuthenticated ? (
@@ -62,7 +63,7 @@ function NavBar() {
 
       {isAuthenticated ? (
         <div className="navLink">
-          <NavLinks />
+          <NavLinks toggler={()=> props.toggler()}/>
         </div>
       ) : (
         ""

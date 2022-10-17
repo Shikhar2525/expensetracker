@@ -222,6 +222,7 @@ function Modal(props) {
                       onBlur={(event) => {
                         setNewDesc(event.target.value)
                       }}
+                      placeholder="Short Description"
                     ></textarea>
                   </div>
                 </div>

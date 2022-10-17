@@ -313,6 +313,7 @@ function ManageExpense() {
                 id="desc"
                 rows="2"
                 maxLength={50}
+                placeholder="Short Description"
               ></textarea>
             </div>
             <div class="form-group mt-3">

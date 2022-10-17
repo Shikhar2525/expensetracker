@@ -1,8 +1,26 @@
 .navLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-weight: lighter;
   font-size: large;
 }
+@media screen and (max-device-width: 640px) {
+  .navLinks{
+    flex-direction: column;
+  }
+  .toggler{
+    margin-top: 10px;
+  }
+}
 
+.breadcrumb{
+  margin-top: 10px;
+}
+.toggler{
+  margin-right:10px;
+  margin-top: -6px;
+}
 li:hover {
   color: grey;
 }
@@ -11,4 +29,47 @@ a,
 a:hover {
   text-decoration: none;
   color: inherit;
+}
+
+/* Theme Toggler */
+.checkbox123 {
+  opacity: 0;
+  position: absolute;
+}
+
+.label123 {
+  width: 45px;
+  height: 20px;
+  background-color: #111;
+  display: flex;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  transform: scale(1.5);
+}
+
+.ball {
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+/*  target the elemenent after the label*/
+.checkbox123:checked + .label123 .ball {
+  transform: translateX(24px);
+}
+
+.fa-moon {
+  color: pink;
+}
+
+.fa-sun {
+  color: yellow;
 }
