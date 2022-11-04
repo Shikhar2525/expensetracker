@@ -25,13 +25,13 @@
     margin-left: 35px;
     height: 150px;
   }
- .ml{
-  margin-left: 16px;
-  margin-top: 10px;
- }
- .logoutButton{
-  margin-right: 6px;
- }
+  .ml {
+    margin-left: 16px;
+    margin-top: 10px;
+  }
+  .logoutButton {
+    margin-right: 6px;
+  }
 }
 
 .logoutButton {
@@ -55,7 +55,6 @@
   font-weight: 600;
   margin-right: 43px;
   width: 25%;
-  
 }
 
 .search {
@@ -68,4 +67,9 @@ input[type="button"] {
 }
 .changeColor {
   background-color: black;
+}
+h2 {
+  font-family: tahoma;
+  font-style: italic;
+  font-size: 35px;
 }

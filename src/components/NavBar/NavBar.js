@@ -10,11 +10,10 @@ function NavBar(props) {
     <div className={`navBar mt-4`}>
       <div className="allElements  container">
         <div className="logoSpinner">
-          <img
-            className="Logo"
-            src={process.env.PUBLIC_URL + "/logo.png"}
-            alt="logo"
-          />
+          <h2 id="logo123">
+            Expense <br />
+            &nbsp;&nbsp;&nbsp; Tracker
+          </h2>
           {isLoading ? (
             <div
               class="spinner spinner-border spinner-border-sm mt-4"
@@ -41,7 +40,10 @@ function NavBar(props) {
               ""
             )}{" "}
           </div>
-          <div className="ml"> {isAuthenticated ? `${user.name || user.email}` : ""}</div>
+          <div className="ml">
+            {" "}
+            {isAuthenticated ? `${user.name || user.email}` : ""}
+          </div>
           {isAuthenticated ? (
             <button
               className="logoutButton btn btn-danger"
