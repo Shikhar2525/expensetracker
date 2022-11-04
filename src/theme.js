@@ -8,7 +8,7 @@ export const lightTheme ={
 export const darkTheme = {
     body : '#121212',
     fontColor : '#fff',
-    cardBg : 'grey',
+    cardBg : '#383838',
     inputColor : '#121212',
     ballColor : 'black',
     labelColor : 'white'

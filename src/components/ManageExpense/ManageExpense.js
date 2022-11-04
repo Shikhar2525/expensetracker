@@ -130,6 +130,7 @@ function ManageExpense() {
     document.getElementById("category").value = "";
     document.getElementById("date").value = "";
     document.getElementById("checkbox").checked = false;
+    document.getElementById("checkboxdate").checked = false;
     document.getElementById("desc").value = "";
   };
 
