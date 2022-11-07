@@ -147,22 +147,6 @@ function ManageExpense() {
     return [year, month, day].join("-");
   }
 
-  const exportData = (expenses) => {
-    let newData = [];
-    expenses.map((expense) => {
-      delete expense.createdDate;
-      delete expense.dateString;
-      delete expense.year;
-      delete expense.month;
-      delete expense.id;
-      delete expense.user;
-      delete expense.editDate;
-      delete expense.isEdited;
-      newData.push(expense);
-    });
-    return newData;
-  };
-
   const handleCheckChange = () => {
     var checkBox = document.getElementById("checkboxdate");
     if (checkBox?.checked === true) {
@@ -526,7 +510,7 @@ function ManageExpense() {
             </button>
             <div class="vr"></div>
             <ExportCSV
-              data={exportData(expenses)}
+              data={expenses}
               canDisable={!(expenses.length > 0) || disableReport}
             />
           </div>
