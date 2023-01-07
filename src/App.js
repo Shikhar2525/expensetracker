@@ -50,7 +50,7 @@ function App() {
     if (document != null) {
       document.body.style.pointerEvents = "all";
       if (document.getElementById("temp") != null)
-        document.getElementById("temp").style.filter = "blur(0px)";
+        document.getElementById("temp").style.filter = "";
     }
   };
 
