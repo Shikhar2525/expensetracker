@@ -16,6 +16,7 @@
     "react-bootstrap": "^2.5.0",
     "react-csv": "^2.2.2",
     "react-datepicker": "^4.8.0",
+    "react-detect-offline": "^2.4.5",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.1",

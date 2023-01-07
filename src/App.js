@@ -12,8 +12,8 @@ import { useState, useEffect } from "react";
 import ManageExpense from "./components/ManageExpense/ManageExpense";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, GlobalStyle } from "./theme";
+import { Online, Offline, Detector } from "react-detect-offline";
 
-const styleApp = styled.div``;
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
   const [progress, setProgress] = useState(0);
@@ -22,9 +22,9 @@ function App() {
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
     if (darkThemeMq.matches) {
-      setTheme('dark')
+      setTheme("dark");
     } else {
-      setTheme('light')
+      setTheme("light");
     }
   }, []);
 
@@ -38,6 +38,22 @@ function App() {
     }
   }, [isLoading]);
 
+  const blockPointer = () => {
+    if (document != null) {
+      document.body.style.pointerEvents = "none";
+      if (document.getElementById("temp") != null)
+        document.getElementById("temp").style.filter = "blur(1.5px)";
+    }
+  };
+
+  const allowPointer = () => {
+    if (document != null) {
+      document.body.style.pointerEvents = "all";
+      if (document.getElementById("temp") != null)
+        document.getElementById("temp").style.filter = "blur(0px)";
+    }
+  };
+
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
@@ -49,21 +65,40 @@ function App() {
             loaderSpeed={1700}
             onLoaderFinished={() => setProgress(0)}
           />
+          <Detector
+            render={({ online }) => (
+              <>
+                {online ? (
+                  allowPointer()
+                ) : (
+                  <>
+                    {blockPointer()}
+                    <div className="container bg-danger internet">
+                      <i class="bi bi-wifi-off"></i> You are offline. Check your
+                      connection.
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+          />
 
-          <NavBar toggler={() => themeToggler()} />
-          <ScrollToTop />
-          <Routes>
-            <Route index element={<Home />} />
-            <Route
-              path="manage"
-              element={isAuthenticated ? <ManageExpense /> : <Welcome />}
-            />
-            <Route
-              path="stats"
-              element={isAuthenticated ? <Stats /> : <Welcome />}
-            />
-            <Route path="*" element={<NoPage />} />
-          </Routes>
+          <div id="temp">
+            <NavBar toggler={() => themeToggler()} />
+            <ScrollToTop />
+            <Routes>
+              <Route index element={<Home />} />
+              <Route
+                path="manage"
+                element={isAuthenticated ? <ManageExpense /> : <Welcome />}
+              />
+              <Route
+                path="stats"
+                element={isAuthenticated ? <Stats /> : <Welcome />}
+              />
+              <Route path="*" element={<NoPage />} />
+            </Routes>
+          </div>
         </BrowserRouter>
       </styleApp>
     </ThemeProvider>
